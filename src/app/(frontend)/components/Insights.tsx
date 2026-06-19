@@ -1,8 +1,29 @@
 import { ArrowRight } from 'lucide-react'
 
+import type { PayloadInsight } from '../types/payload'
 import { INSIGHTS_LIST } from '../constants/content'
 
-export function Insights() {
+interface InsightsProps {
+  insights?: PayloadInsight[] | null
+}
+
+function formatDate(dateStr: string) {
+  try {
+    return new Date(dateStr).toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    })
+  } catch {
+    return dateStr
+  }
+}
+
+export function Insights({ insights }: InsightsProps) {
+  const hasData = insights !== null && insights !== undefined && insights.length > 0
+  const featured = hasData ? (insights!.find((i) => i.featured) || null) : null
+  const list = hasData ? insights!.filter((i) => !i.featured).slice(0, 4) : null
+
   return (
     <section className="la-section" id="insights" data-screen-label="Insights">
       <div className="la-container">
@@ -20,23 +41,36 @@ export function Insights() {
         <div className="insights-layout">
           <article className="feat-article reveal">
             <div className="feat-article-img">
-              <img
-                src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=900&q=80"
-                alt="Business meeting — merger review article"
-                style={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', display: 'block', borderRadius: 12 }}
-              />
+              {featured?.coverImage?.url ? (
+                <img
+                  src={featured.coverImage.url}
+                  alt={featured.coverImage.alt || ''}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              ) : (
+                <img
+                  src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=900&q=80"
+                  alt="Business meeting — merger review article"
+                  style={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', display: 'block', borderRadius: 12 }}
+                />
+              )}
             </div>
             <div className="art-meta">
-              <span className="cat">Business Law</span>
+              <span className="cat">
+                {featured?.category?.title ?? 'Business Law'}
+              </span>
               <span className="dot" aria-hidden="true" />
-              <span>June 12, 2026</span>
+              <span>{featured ? formatDate(featured.publishedDate) : 'June 12, 2026'}</span>
               <span className="dot" aria-hidden="true" />
-              <span>8 min read</span>
+              <span>{featured?.readTime ? `${featured.readTime} min read` : '8 min read'}</span>
             </div>
-            <h3>What the new merger-review thresholds mean for mid-market acquisitions</h3>
+            <h3>
+              {featured?.title ??
+                'What the new merger-review thresholds mean for mid-market acquisitions'}
+            </h3>
             <p>
-              Recent changes to regulatory review are reshaping deal timelines. We break down the
-              practical implications for buyers, sellers, and their counsel.
+              {featured?.excerpt ??
+                'Recent changes to regulatory review are reshaping deal timelines. We break down the practical implications for buyers, sellers, and their counsel.'}
             </p>
             <a href="#" className="linkarrow" style={{ marginTop: 18 }}>
               Read the analysis <ArrowRight />
@@ -44,16 +78,27 @@ export function Insights() {
           </article>
 
           <div className="art-list reveal d1">
-            {INSIGHTS_LIST.map(({ cat, time, title }) => (
-              <a key={title} className="art-row" href="#">
-                <div className="art-meta">
-                  <span className="cat">{cat}</span>
-                  <span className="dot" aria-hidden="true" />
-                  <span>{time}</span>
-                </div>
-                <h4>{title}</h4>
-              </a>
-            ))}
+            {list && list.length > 0
+              ? list.map((article) => (
+                  <a key={String(article.id)} className="art-row" href="#">
+                    <div className="art-meta">
+                      <span className="cat">{article.category?.title ?? ''}</span>
+                      <span className="dot" aria-hidden="true" />
+                      <span>{article.readTime ? `${article.readTime} min` : ''}</span>
+                    </div>
+                    <h4>{article.title}</h4>
+                  </a>
+                ))
+              : INSIGHTS_LIST.map(({ cat, time, title }) => (
+                  <a key={title} className="art-row" href="#">
+                    <div className="art-meta">
+                      <span className="cat">{cat}</span>
+                      <span className="dot" aria-hidden="true" />
+                      <span>{time}</span>
+                    </div>
+                    <h4>{title}</h4>
+                  </a>
+                ))}
           </div>
         </div>
       </div>
