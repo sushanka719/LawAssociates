@@ -1,0 +1,53 @@
+/* Law Associates — contact, cta band, footer */
+
+/* contact form */
+.contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; }
+.field { margin-bottom: 18px; }
+.field label { display: block; font-size: 13px; font-weight: 600; color: var(--ink-2); margin-bottom: 7px; }
+.field .req { color: var(--gold); }
+.la-input, .la-textarea, .la-select {
+  width: 100%; height: 46px; padding: 0 14px;
+  background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius);
+  font: inherit; font-size: 15px; color: var(--ink);
+  transition: border-color .15s, box-shadow .15s;
+}
+.la-textarea { height: auto; padding: 12px 14px; min-height: 130px; resize: vertical; line-height: 1.55; }
+.la-input:focus, .la-textarea:focus, .la-select:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px var(--ring); }
+[data-theme="dark"] .la-input:focus, [data-theme="dark"] .la-textarea:focus, [data-theme="dark"] .la-select:focus { border-color: var(--gold); }
+.la-input::placeholder, .la-textarea::placeholder { color: color-mix(in oklab, var(--muted) 85%, transparent); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.form-note { font-size: 12.5px; color: var(--muted); margin-top: 14px; }
+.form-ok { display: none; align-items: center; gap: 10px; margin-top: 16px; padding: 12px 16px; border-radius: 8px; background: color-mix(in oklab, var(--gold) 14%, var(--bg)); border: 1px solid var(--rule-soft); color: var(--ink); font-size: 14px; }
+.form-ok.show { display: flex; }
+
+.contact-card { border: 1px solid var(--line-soft); border-radius: 14px; overflow: hidden; }
+.contact-map { aspect-ratio: 16/8; background: var(--bg-subtle); position: relative; display: grid; place-items: center; border-bottom: 1px solid var(--line-soft); overflow: hidden; }
+.contact-rows { padding: 6px 24px; }
+.crow { display: flex; gap: 16px; padding: 20px 0; border-top: 1px solid var(--line-soft); }
+.crow:first-child { border-top: none; }
+.crow .ci { width: 38px; height: 38px; border-radius: 8px; background: var(--bg-subtle); display: grid; place-items: center; color: var(--gold); flex-shrink: 0; }
+.crow .ci svg { width: 18px; height: 18px; }
+.crow .ck { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.crow .cv { font-size: 15px; color: var(--ink); margin-top: 3px; line-height: 1.45; }
+@media (max-width: 860px) { .contact-layout { grid-template-columns: 1fr; gap: 44px; } .form-row { grid-template-columns: 1fr; } }
+
+/* cta band */
+.ctaband { text-align: center; }
+.ctaband h2 { margin-bottom: 22px; color: #fff; }
+.ctaband .lead { max-width: 56ch; margin-inline: auto; }
+.ctaband .hero-cta { justify-content: center; margin-top: 36px; }
+
+/* footer */
+.footer { background: var(--bg-band-2); color: #B7C5D6; padding-top: 80px; }
+.footer a { color: #B7C5D6; transition: color .15s; }
+.footer a:hover { color: #fff; }
+.foot-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 56px; border-bottom: 1px solid rgb(255 255 255 / .1); }
+.foot-brand .brand .mark { background: #fff; color: var(--navy-900); }
+.foot-brand .brand .word b { color: #fff; }
+.foot-brand p { font-size: 14px; line-height: 1.65; color: #92A4B8; margin: 22px 0 0; max-width: 34ch; }
+.foot-col h5 { font-family: var(--font-ui); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #fff; margin: 0 0 18px; font-weight: 600; }
+.foot-col a { display: block; font-size: 14px; padding: 7px 0; }
+.foot-bottom { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 28px 0; flex-wrap: wrap; font-size: 13px; color: #7E92A8; }
+.foot-bottom .legal { display: flex; gap: 24px; flex-wrap: wrap; }
+@media (max-width: 900px) { .foot-top { grid-template-columns: 1fr 1fr; gap: 36px; } .foot-brand { grid-column: 1 / -1; } }
+@media (max-width: 520px) { .foot-top { grid-template-columns: 1fr 1fr; } }

@@ -1,0 +1,77 @@
+/* Law Associates — navigation */
+
+.la-nav {
+  position: sticky; top: 0; z-index: 60;
+  height: var(--nav-h);
+  display: flex; align-items: center;
+  background: color-mix(in oklab, var(--bg) 82%, transparent);
+  backdrop-filter: saturate(140%) blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: height .3s var(--ease), background .3s var(--ease), border-color .3s var(--ease);
+}
+.la-nav.compact {
+  height: var(--nav-h-compact);
+  background: color-mix(in oklab, var(--bg) 94%, transparent);
+  border-bottom-color: var(--line-soft);
+  box-shadow: var(--shadow-card);
+}
+.la-nav .la-container { display: flex; align-items: center; gap: 36px; width: 100%; }
+
+.brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.brand .mark {
+  width: 40px; height: 40px; border-radius: 7px;
+  display: grid; place-items: center;
+  background: var(--navy); color: #fff;
+  font-family: var(--font-display); font-weight: 600; font-size: 19px; letter-spacing: .02em;
+  border: 1px solid color-mix(in oklab, var(--gold) 70%, var(--navy));
+}
+[data-theme="dark"] .brand .mark { background: #fff; color: var(--navy-900); }
+.brand .word { line-height: 1.05; }
+.brand .word b { font-family: var(--font-display); font-weight: 600; font-size: 19px; letter-spacing: .01em; display: block; color: var(--ink); }
+.brand .word span { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+
+.nav-links { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--ink-2); padding: 9px 13px; border-radius: 6px; transition: color .15s, background .15s; }
+.nav-links a:hover { color: var(--ink); background: color-mix(in oklab, var(--ink) 5%, transparent); }
+.nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+.icon-btn {
+  width: 40px; height: 40px; border-radius: 7px;
+  display: grid; place-items: center;
+  background: transparent; border: 1px solid var(--line-strong); color: var(--ink-2);
+  transition: background .15s, color .15s, border-color .15s;
+}
+.icon-btn:hover { color: var(--ink); border-color: var(--ink); }
+.icon-btn svg { width: 18px; height: 18px; }
+
+.theme-toggle .moon { display: none; }
+[data-theme="dark"] .theme-toggle .sun { display: none; }
+[data-theme="dark"] .theme-toggle .moon { display: block; }
+
+.la-hamburger { display: none; }
+
+/* mobile sheet */
+.sheet-scrim {
+  position: fixed; inset: 0; z-index: 70;
+  background: rgb(8 16 27 / .5); backdrop-filter: blur(2px);
+  opacity: 0; pointer-events: none; transition: opacity .25s var(--ease);
+}
+.sheet-scrim.open { opacity: 1; pointer-events: auto; }
+.sheet {
+  position: fixed; top: 0; right: 0; z-index: 71;
+  width: min(360px, 86vw); height: 100%;
+  background: var(--bg); border-left: 1px solid var(--line-soft);
+  transform: translateX(100%); transition: transform .32s var(--ease);
+  display: flex; flex-direction: column; padding: 22px;
+}
+.sheet.open { transform: translateX(0); }
+.sheet-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.sheet nav { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; }
+.sheet nav a { padding: 14px 12px; border-radius: 8px; font-size: 16px; font-weight: 500; color: var(--ink); border-bottom: 1px solid var(--line-soft); }
+.sheet nav a:hover { background: var(--bg-subtle); }
+.sheet .btn { margin-top: 18px; width: 100%; }
+
+@media (max-width: 1080px) {
+  .nav-links { display: none; }
+  .la-hamburger { display: grid; }
+}
