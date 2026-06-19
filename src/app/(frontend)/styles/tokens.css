@@ -1,0 +1,99 @@
+/* Law Associates — design tokens */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --navy:      #183153;
+  --navy-900:  #0F2138;
+  --navy-950:  #0A1726;
+  --navy-700:  #244469;
+  --navy-tint: #EEF1F6;
+
+  --gold:       #B8932E;
+  --gold-bright:#D4AF37;
+  --gold-soft:  #E7D8A6;
+
+  --white:  #FFFFFF;
+  --paper:  #F8F9FB;
+  --mist:   #F5F7FA;
+  --line:   #E5E7EB;
+  --gray-5: #6B7280;
+  --gray-7: #374151;
+  --gray-9: #111827;
+
+  /* semantic (light) */
+  --bg:          var(--white);
+  --bg-subtle:   var(--paper);
+  --bg-band:     var(--navy);
+  --bg-band-2:   var(--navy-900);
+  --surface:     var(--white);
+  --ink:         #14233A;
+  --ink-2:       var(--gray-7);
+  --muted:       var(--gray-5);
+  --line-soft:   var(--line);
+  --line-strong: #D3D8E0;
+  --primary:     var(--navy);
+  --primary-hover: var(--navy-900);
+  --on-primary:  #FFFFFF;
+  --ring:        color-mix(in oklab, var(--navy) 45%, transparent);
+
+  --eyebrow:     var(--gold);
+  --rule:        var(--gold);
+  --rule-soft:   color-mix(in oklab, var(--gold) 40%, transparent);
+
+  --font-display: 'Libre Baskerville', Georgia, serif;
+  --font-ui:      var(--font-geist-sans, 'Geist', system-ui, sans-serif);
+
+  --radius:    8px;
+  --radius-lg: 12px;
+  --shadow-card: 0 1px 3px 0 rgb(16 33 56 / .07), 0 1px 2px -1px rgb(16 33 56 / .07);
+  --shadow-lift: 0 18px 40px -22px rgb(16 33 56 / .35), 0 6px 16px -10px rgb(16 33 56 / .22);
+  --shadow-pop:  0 12px 32px -8px rgb(16 33 56 / .18);
+
+  --container:  1216px;
+  --gutter:     32px;
+  --section-y:  120px;
+
+  --nav-h:         80px;
+  --nav-h-compact: 64px;
+
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+[data-accent="minimal"] {
+  --eyebrow:   var(--muted);
+  --rule:      var(--line-strong);
+  --rule-soft: var(--line);
+}
+[data-accent="bold"] {
+  --eyebrow:   var(--gold);
+  --rule:      var(--gold-bright);
+  --rule-soft: color-mix(in oklab, var(--gold-bright) 55%, transparent);
+}
+
+[data-serif="playfair"]    { --font-display: 'Playfair Display', Georgia, serif; }
+[data-serif="baskerville"] { --font-display: 'Libre Baskerville', Georgia, serif; }
+
+[data-theme="dark"] {
+  --bg:          #0B1A2C;
+  --bg-subtle:   #0E2034;
+  --bg-band:     #081522;
+  --bg-band-2:   #06101B;
+  --surface:     #11253B;
+  --ink:         #EAF0F7;
+  --ink-2:       #C2CEDC;
+  --muted:       #8A9AAE;
+  --line-soft:   rgb(255 255 255 / .09);
+  --line-strong: rgb(255 255 255 / .16);
+  --primary:     #FFFFFF;
+  --primary-hover: #E7ECF2;
+  --on-primary:  #0B1A2C;
+  --gold:        #D4AF37;
+  --ring:        color-mix(in oklab, #D4AF37 50%, transparent);
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / .5);
+  --shadow-lift: 0 24px 50px -24px rgb(0 0 0 / .7);
+  --shadow-pop:  0 12px 32px -8px rgb(0 0 0 / .55);
+}
+[data-theme="dark"][data-accent="minimal"] {
+  --eyebrow: var(--muted);
+  --rule:    var(--line-strong);
+}
