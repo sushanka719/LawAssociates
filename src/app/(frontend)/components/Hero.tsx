@@ -8,11 +8,24 @@ interface HeroProps {
   siteSettings?: PayloadSiteSettings | null
 }
 
+function renderHeadline(text: string, emphasis: string) {
+  const idx = text.toLowerCase().indexOf(emphasis.toLowerCase())
+  if (idx === -1) return <>{text}</>
+  return (
+    <>
+      {text.slice(0, idx)}
+      <em>{text.slice(idx, idx + emphasis.length)}</em>
+      {text.slice(idx + emphasis.length)}
+    </>
+  )
+}
+
 export function Hero({ siteSettings }: HeroProps) {
   const eyebrow = siteSettings?.heroEyebrow || FIRM_TAGLINE
-  const headline =
+  const headlineText =
     siteSettings?.heroHeadline ||
-    "Strategic counsel for the matters that <em>define</em> your future."
+    'Strategic counsel for the matters that define your future.'
+  const headlineEmphasis = siteSettings?.heroHeadlineEmphasis || 'define'
   const lead =
     siteSettings?.heroLead ||
     'For more than two decades, Aurelius Legal Partners has guided corporations, founders, and families through their most consequential legal challenges — pairing rigorous strategy with the discretion and resolve our clients depend on.'
@@ -40,10 +53,9 @@ export function Hero({ siteSettings }: HeroProps) {
         <div className="hero-grid">
           <div className="hero-col-text reveal">
             <p className="eyebrow hero-eyebrow">{eyebrow}</p>
-            <h1
-              className="display"
-              dangerouslySetInnerHTML={{ __html: headline }}
-            />
+            <h1 className="display">
+              {renderHeadline(headlineText, headlineEmphasis)}
+            </h1>
             <p className="lead measure">{lead}</p>
             <div className="hero-cta">
               <a href="#contact" className="btn btn-primary">

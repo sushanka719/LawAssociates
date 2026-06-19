@@ -78,6 +78,7 @@ export type PayloadAward = {
 export type PayloadSiteSettings = {
   heroEyebrow?: string | null
   heroHeadline?: string | null
+  heroHeadlineEmphasis?: string | null
   heroLead?: string | null
   heroCtaPrimary?: string | null
   heroCtaSecondary?: string | null
@@ -93,6 +94,7 @@ export type PayloadSiteSettings = {
   statSatisfaction?: string | null
   statSatisfactionLabel?: string | null
   statRecovered?: string | null
+  statRecoveredLabel?: string | null
   phone?: string | null
   email?: string | null
   addressLine1?: string | null

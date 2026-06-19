@@ -12,6 +12,18 @@ export const ConsultationRequests: CollectionConfig = {
     update: ({ req }) => !!req.user,
     delete: ({ req }) => !!req.user,
   },
+  hooks: {
+    beforeOperation: [
+      ({ args, operation }) => {
+        if (operation === 'create') {
+          const data = args.data as Record<string, unknown>
+          if (data._honeypot) {
+            throw new Error('Bot submission detected')
+          }
+        }
+      },
+    ],
+  },
   fields: [
     {
       name: 'name',
@@ -67,6 +79,11 @@ export const ConsultationRequests: CollectionConfig = {
       hooks: {
         beforeChange: [({ value }) => value || new Date().toISOString()],
       },
+    },
+    {
+      name: '_honeypot',
+      type: 'text',
+      admin: { hidden: true },
     },
   ],
 }

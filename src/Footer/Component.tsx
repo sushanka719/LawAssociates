@@ -3,13 +3,16 @@ import Link from 'next/link'
 import React from 'react'
 
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
-import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
+
+type FooterLink = { label: string; url: string }
+type FooterColumn = { title: string; links?: FooterLink[] }
 
 export async function Footer() {
   const footerData = await getCachedGlobal('footer', 1)()
 
-  const navItems = footerData?.navItems || []
+  const columns: FooterColumn[] = footerData?.columns || []
+  const navLinks = columns.flatMap((col) => col.links || [])
 
   return (
     <footer className="mt-auto border-t border-border bg-black dark:bg-card text-white">
@@ -21,9 +24,11 @@ export async function Footer() {
         <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
           <ThemeSelector />
           <nav className="flex flex-col md:flex-row gap-4">
-            {navItems.map(({ link }, i) => {
-              return <CMSLink className="text-white" key={i} {...link} />
-            })}
+            {navLinks.map((link, i) => (
+              <Link className="text-white" key={i} href={link.url}>
+                {link.label}
+              </Link>
+            ))}
           </nav>
         </div>
       </div>

@@ -25,6 +25,8 @@ export const Attorneys: CollectionConfig = {
       name: 'slug',
       type: 'text',
       required: true,
+      unique: true,
+      index: true,
       admin: { position: 'sidebar' },
     },
     {

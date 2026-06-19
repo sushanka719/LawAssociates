@@ -14,6 +14,7 @@ interface FormValues {
   phone?: string
   practiceArea?: string
   message: string
+  _honeypot?: string
 }
 
 const AREAS = [
@@ -81,6 +82,7 @@ export function Contact({ siteSettings }: ContactProps) {
 
         <div className="contact-layout">
           <form className="reveal" onSubmit={handleSubmit(onSubmit)} noValidate>
+            <input type="text" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" {...register('_honeypot')} />
             <div className="form-row">
               <div className="field">
                 <label htmlFor="f-name">Full Name <span className="req">*</span></label>

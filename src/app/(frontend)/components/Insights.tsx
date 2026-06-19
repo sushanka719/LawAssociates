@@ -21,10 +21,9 @@ function formatDate(dateStr: string) {
 }
 
 export function Insights({ insights }: InsightsProps) {
-  const featured = insights?.find((i) => i.featured) || null
-  const list = insights
-    ? insights.filter((i) => !i.featured).slice(0, 4)
-    : null
+  const hasData = insights !== null && insights !== undefined && insights.length > 0
+  const featured = hasData ? (insights!.find((i) => i.featured) || null) : null
+  const list = hasData ? insights!.filter((i) => !i.featured).slice(0, 4) : null
 
   return (
     <section className="la-section" id="insights" data-screen-label="Insights">

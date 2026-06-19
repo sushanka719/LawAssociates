@@ -20,6 +20,12 @@ export const SiteSettings: GlobalConfig = {
       defaultValue: 'Strategic counsel for the matters that define your future.',
     },
     {
+      name: 'heroHeadlineEmphasis',
+      type: 'text',
+      defaultValue: 'define',
+      admin: { description: 'Word in the headline to italicize' },
+    },
+    {
       name: 'heroLead',
       type: 'textarea',
     },
@@ -93,6 +99,11 @@ export const SiteSettings: GlobalConfig = {
       name: 'statRecovered',
       type: 'text',
       defaultValue: '$1.2B',
+    },
+    {
+      name: 'statRecoveredLabel',
+      type: 'text',
+      defaultValue: 'Recovered & protected',
     },
     // ── Contact information ───────────────────────────────────────────────────
     {

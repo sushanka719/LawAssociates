@@ -33,6 +33,8 @@ export const Insights: CollectionConfig = {
       name: 'slug',
       type: 'text',
       required: true,
+      unique: true,
+      index: true,
       admin: { position: 'sidebar' },
     },
     {
