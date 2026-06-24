@@ -4,29 +4,19 @@ import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import type { PayloadTestimonial } from '../types/payload'
-import { TESTIMONIALS } from '../constants/content'
 
 interface TestimonialsProps {
   testimonials?: PayloadTestimonial[] | null
 }
 
 export function Testimonials({ testimonials }: TestimonialsProps) {
-  const items =
-    testimonials && testimonials.length > 0
-      ? testimonials.map((t) => ({
-          key: String(t.id),
-          quote: t.quote,
-          name: t.clientName,
-          role: t.clientTitle,
-          initial: t.avatarInitial || t.clientName.charAt(0),
-        }))
-      : TESTIMONIALS.map((t) => ({
-          key: t.name,
-          quote: t.quote,
-          name: t.name,
-          role: t.role,
-          initial: t.initial,
-        }))
+  const items = (testimonials ?? []).map((t) => ({
+    key: String(t.id),
+    quote: t.quote,
+    name: t.clientName,
+    role: t.clientTitle,
+    initial: t.avatarInitial || t.clientName.charAt(0),
+  }))
 
   const [index, setIndex] = useState(0)
   const autoRef = useRef<ReturnType<typeof setInterval> | null>(null)

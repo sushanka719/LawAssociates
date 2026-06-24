@@ -1,33 +1,21 @@
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 
 import type { PayloadAttorney } from '../types/payload'
-import { ATTORNEYS } from '../constants/content'
 
 interface AttorneysProps {
   attorneys?: PayloadAttorney[] | null
 }
 
 export function Attorneys({ attorneys }: AttorneysProps) {
-  const items =
-    attorneys && attorneys.length > 0
-      ? attorneys.map((a) => ({
-          id: String(a.id),
-          name: a.name,
-          role: a.role,
-          spec: a.specialty,
-          years: String(a.yearsExperience),
-          photoUrl: a.photo?.url || null,
-          photoAlt: a.photo?.alt || a.name,
-        }))
-      : ATTORNEYS.map((a) => ({
-          id: a.id,
-          name: a.name,
-          role: a.role,
-          spec: a.spec,
-          years: a.years,
-          photoUrl: a.img || null,
-          photoAlt: a.name,
-        }))
+  const items = (attorneys ?? []).map((a) => ({
+    id: String(a.id),
+    name: a.name,
+    role: a.role,
+    spec: a.specialty,
+    years: String(a.yearsExperience),
+    photoUrl: a.photo?.url || null,
+    photoAlt: a.photo?.alt || a.name,
+  }))
 
   return (
     <section className="la-section" id="attorneys" data-screen-label="Attorneys">

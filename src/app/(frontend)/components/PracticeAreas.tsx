@@ -1,22 +1,18 @@
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 
 import type { PayloadPracticeArea } from '../types/payload'
-import { PRACTICE_AREAS } from '../constants/content'
 
 interface PracticeAreasProps {
   practiceAreas?: PayloadPracticeArea[] | null
 }
 
 export function PracticeAreas({ practiceAreas }: PracticeAreasProps) {
-  const items =
-    practiceAreas && practiceAreas.length > 0
-      ? practiceAreas.map((pa, i) => ({
-          idx: String(pa.order ?? i + 1).padStart(2, '0'),
-          title: pa.title,
-          desc: pa.shortDescription,
-          key: String(pa.id),
-        }))
-      : PRACTICE_AREAS.map((pa) => ({ idx: pa.idx, title: pa.title, desc: pa.desc, key: pa.idx }))
+  const items = (practiceAreas ?? []).map((pa, i) => ({
+    idx: String(pa.order ?? i + 1).padStart(2, '0'),
+    title: pa.title,
+    desc: pa.shortDescription,
+    key: String(pa.id),
+  }))
 
   return (
     <section className="la-section" id="practice" data-screen-label="Practice Areas">

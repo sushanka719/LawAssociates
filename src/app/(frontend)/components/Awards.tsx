@@ -1,7 +1,6 @@
 import { Award, Medal, ShieldCheck, Star, Trophy } from 'lucide-react'
 
 import type { PayloadAward } from '../types/payload'
-import { AWARDS } from '../constants/content'
 
 const ICON_MAP = {
   Award,
@@ -22,15 +21,12 @@ interface AwardsProps {
 }
 
 export function Awards({ awards }: AwardsProps) {
-  const items =
-    awards && awards.length > 0
-      ? awards.map((a) => ({
-          key: String(a.id),
-          icon: a.icon || 'award',
-          org: a.organization,
-          yr: a.distinction,
-        }))
-      : AWARDS.map((a) => ({ key: a.org, icon: a.icon, org: a.org, yr: a.yr }))
+  const items = (awards ?? []).map((a) => ({
+    key: String(a.id),
+    icon: a.icon || 'award',
+    org: a.organization,
+    yr: a.distinction,
+  }))
 
   return (
     <section className="la-section" data-screen-label="Awards">

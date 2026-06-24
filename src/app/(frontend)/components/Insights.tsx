@@ -1,7 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 
 import type { PayloadInsight } from '../types/payload'
-import { INSIGHTS_LIST } from '../constants/content'
 
 interface InsightsProps {
   insights?: PayloadInsight[] | null
@@ -89,16 +88,7 @@ export function Insights({ insights }: InsightsProps) {
                     <h4>{article.title}</h4>
                   </a>
                 ))
-              : INSIGHTS_LIST.map(({ cat, time, title }) => (
-                  <a key={title} className="art-row" href="#">
-                    <div className="art-meta">
-                      <span className="cat">{cat}</span>
-                      <span className="dot" aria-hidden="true" />
-                      <span>{time}</span>
-                    </div>
-                    <h4>{title}</h4>
-                  </a>
-                ))}
+              : null}
           </div>
         </div>
       </div>

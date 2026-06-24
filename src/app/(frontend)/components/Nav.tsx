@@ -4,7 +4,6 @@ import { Menu, Moon, Sun, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 import { useTheme } from '@/providers/Theme'
-import { FIRM_NAME } from '../constants/content'
 
 const NAV_LINKS = [
   { href: '#practice', label: 'Practice Areas' },
@@ -46,7 +45,7 @@ export function Nav() {
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
 
   const Brand = ({ onClick }: { onClick?: () => void }) => (
-    <a className="brand" href="#top" aria-label={`${FIRM_NAME} home`} onClick={onClick}>
+    <a className="brand" href="#top" aria-label={'Aurelius Legal Partners home'} onClick={onClick}>
       <span className="mark">L</span>
       <span className="word"><b>Law</b><span>Associates</span></span>
     </a>

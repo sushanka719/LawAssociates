@@ -1,7 +1,6 @@
 import { ArrowRight, Phone } from 'lucide-react'
 
 import type { PayloadSiteSettings } from '../types/payload'
-import { FIRM_PHONE } from '../constants/content'
 
 interface CtaBandProps {
   siteSettings?: PayloadSiteSettings | null
@@ -12,7 +11,7 @@ export function CtaBand({ siteSettings }: CtaBandProps) {
   const body =
     siteSettings?.ctaBody ||
     'Request a confidential consultation. We will review your situation, outline your options, and recommend a clear path forward — with no obligation.'
-  const phone = siteSettings?.phone || FIRM_PHONE
+  const phone = siteSettings?.phone || '(212) 555-1840'
 
   return (
     <section className="la-section band ctaband" data-screen-label="CTA">

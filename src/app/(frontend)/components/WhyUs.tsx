@@ -1,7 +1,6 @@
 import { Award, Globe, Lock, MessagesSquare, Scale, Target } from 'lucide-react'
 
 import type { PayloadWhyChooseUs } from '../types/payload'
-import { WHY_US_ITEMS } from '../constants/content'
 
 const ICON_MAP = { Scale, Target, MessagesSquare, Award, Lock, Globe, scale: Scale, target: Target, 'messages-square': MessagesSquare, award: Award, lock: Lock, globe: Globe } as const
 type IconKey = keyof typeof ICON_MAP
@@ -21,20 +20,12 @@ export function WhyUs({ whyChooseUs }: WhyUsProps) {
   const cite =
     whyChooseUs?.partnerQuoteCite || '— Eleanor Ashford-Vance, Managing Partner'
 
-  const items =
-    whyChooseUs?.items && whyChooseUs.items.length > 0
-      ? whyChooseUs.items.map((item) => ({
-          icon: item.icon || '',
-          title: item.title || '',
-          desc: item.description || '',
-          key: item.id || item.title || '',
-        }))
-      : WHY_US_ITEMS.map((item) => ({
-          icon: item.icon,
-          title: item.title,
-          desc: item.desc,
-          key: item.title,
-        }))
+  const items = (whyChooseUs?.items ?? []).map((item) => ({
+    icon: item.icon || '',
+    title: item.title || '',
+    desc: item.description || '',
+    key: item.id || item.title || '',
+  }))
 
   return (
     <section className="la-section subtle-bg" id="about" data-screen-label="Why Choose Us">

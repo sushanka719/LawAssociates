@@ -1,7 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 
 import type { PayloadSiteSettings } from '../types/payload'
-import { FIRM_TAGLINE } from '../constants/content'
 
 interface HeroProps {
   siteSettings?: PayloadSiteSettings | null
@@ -20,7 +19,7 @@ function renderHeadline(text: string, emphasis: string) {
 }
 
 export function Hero({ siteSettings }: HeroProps) {
-  const eyebrow = siteSettings?.heroEyebrow || FIRM_TAGLINE
+  const eyebrow = siteSettings?.heroEyebrow || 'Aurelius Legal Partners · Est. 1998'
   const headlineText =
     siteSettings?.heroHeadline ||
     'Strategic counsel for the matters that define your future.'

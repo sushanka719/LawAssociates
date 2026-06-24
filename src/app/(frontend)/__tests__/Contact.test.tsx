@@ -2,7 +2,16 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { Contact } from '../components/Contact'
-import { FIRM_EMAIL, FIRM_PHONE } from '../constants/content'
+import type { PayloadSiteSettings } from '../types/payload'
+
+const mockSettings: PayloadSiteSettings = {
+  phone: '(212) 555-1840',
+  email: 'counsel@aureliuslegal.com',
+  addressLine1: '400 Park Avenue, 28th Floor',
+  addressLine2: 'New York, NY 10022',
+  officeHours: 'Mon–Fri · 8:30am – 6:00pm',
+  officeHoursNote: 'Evenings by appointment',
+}
 
 describe('Contact', () => {
   it('renders the section heading', () => {
@@ -17,10 +26,10 @@ describe('Contact', () => {
     expect(screen.getByLabelText(/how can we help/i)).toBeInTheDocument()
   })
 
-  it('renders firm contact information', () => {
-    render(<Contact />)
-    expect(screen.getByText(FIRM_PHONE)).toBeInTheDocument()
-    expect(screen.getByText(FIRM_EMAIL)).toBeInTheDocument()
+  it('renders firm contact information from siteSettings', () => {
+    render(<Contact siteSettings={mockSettings} />)
+    expect(screen.getByText('(212) 555-1840')).toBeInTheDocument()
+    expect(screen.getByText('counsel@aureliuslegal.com')).toBeInTheDocument()
   })
 
   it('shows success message after form submission', async () => {

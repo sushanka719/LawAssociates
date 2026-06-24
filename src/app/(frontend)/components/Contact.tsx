@@ -5,7 +5,6 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import type { PayloadSiteSettings } from '../types/payload'
-import { FIRM_ADDRESS, FIRM_EMAIL, FIRM_HOURS, FIRM_PHONE } from '../constants/content'
 
 interface FormValues {
   name: string
@@ -39,12 +38,12 @@ export function Contact({ siteSettings }: ContactProps) {
 
   const address =
     [siteSettings?.addressLine1, siteSettings?.addressLine2].filter(Boolean).join('\n') ||
-    FIRM_ADDRESS
-  const phone = siteSettings?.phone || FIRM_PHONE
-  const email = siteSettings?.email || FIRM_EMAIL
+    '400 Park Avenue, 28th Floor\nNew York, NY 10022'
+  const phone = siteSettings?.phone || '(212) 555-1840'
+  const email = siteSettings?.email || 'counsel@aureliuslegal.com'
   const hours =
     [siteSettings?.officeHours, siteSettings?.officeHoursNote].filter(Boolean).join('\n') ||
-    FIRM_HOURS
+    'Mon–Fri · 8:30am – 6:00pm\nEvenings by appointment'
   const mapImage = siteSettings?.officeMapImage
 
   const onSubmit = async (data: FormValues) => {

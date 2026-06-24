@@ -1,5 +1,4 @@
 import type { PayloadProcessSteps } from '../types/payload'
-import { PROCESS_STEPS } from '../constants/content'
 
 interface ProcessProps {
   processSteps?: PayloadProcessSteps | null
@@ -9,20 +8,12 @@ export function Process({ processSteps }: ProcessProps) {
   const headline =
     processSteps?.sectionHeadline || 'A clear path from first call to resolution.'
 
-  const steps =
-    processSteps?.steps && processSteps.steps.length > 0
-      ? processSteps.steps.map((s) => ({
-          key: String(s.number),
-          num: String(s.number),
-          title: s.title,
-          desc: s.description,
-        }))
-      : PROCESS_STEPS.map((s) => ({
-          key: s.num,
-          num: s.num,
-          title: s.title,
-          desc: s.desc,
-        }))
+  const steps = (processSteps?.steps ?? []).map((s) => ({
+    key: String(s.number),
+    num: String(s.number),
+    title: s.title,
+    desc: s.description,
+  }))
 
   return (
     <section className="la-section subtle-bg" data-screen-label="Process">
