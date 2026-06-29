@@ -1,5 +1,9 @@
+'use client'
+
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 
+import { useLanguage } from '@/providers/Language'
+import { getTranslations } from '../translations'
 import type { PayloadAttorney } from '../types/payload'
 
 interface AttorneysProps {
@@ -7,28 +11,48 @@ interface AttorneysProps {
 }
 
 export function Attorneys({ attorneys }: AttorneysProps) {
-  const items = (attorneys ?? []).map((a) => ({
-    id: String(a.id),
-    name: a.name,
-    role: a.role,
-    spec: a.specialty,
-    years: String(a.yearsExperience),
-    photoUrl: a.photo?.url || null,
-    photoAlt: a.photo?.alt || a.name,
-  }))
+  const { language } = useLanguage()
+  const t = getTranslations(language)
+
+  const items = language === 'ne'
+    ? t.attorneys.items.map((a, i) => ({
+        id: String(i),
+        name: a.name,
+        role: a.role,
+        spec: a.spec,
+        years: a.years,
+        photoUrl: null as string | null,
+        photoAlt: a.name,
+      }))
+    : (attorneys ?? []).length > 0
+      ? (attorneys ?? []).map((a) => ({
+          id: String(a.id),
+          name: a.name,
+          role: a.role,
+          spec: a.specialty,
+          years: String(a.yearsExperience),
+          photoUrl: a.photo?.url || null,
+          photoAlt: a.photo?.alt || a.name,
+        }))
+      : t.attorneys.items.map((a, i) => ({
+          id: String(i),
+          name: a.name,
+          role: a.role,
+          spec: a.spec,
+          years: a.years,
+          photoUrl: null as string | null,
+          photoAlt: a.name,
+        }))
 
   return (
     <section className="la-section" id="attorneys" data-screen-label="Attorneys">
       <div className="la-container">
         <div className="sec-split">
           <div className="reveal">
-            <p className="eyebrow">The People</p>
-            <h2 className="display d-lg">Counsel you will know by name.</h2>
+            <p className="eyebrow">{t.attorneys.eyebrow}</p>
+            <h2 className="display d-lg">{t.attorneys.headline}</h2>
           </div>
-          <p className="lead reveal d1">
-            Our partners bring decades of focused experience and a shared commitment to
-            representing each client as if their matter were our own.
-          </p>
+          <p className="lead reveal d1">{t.attorneys.lead}</p>
         </div>
 
         <div className="attorneys-grid">
@@ -38,7 +62,7 @@ export function Attorneys({ attorneys }: AttorneysProps) {
                 {photoUrl && (
                   <img src={photoUrl} alt={photoAlt} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 )}
-                <span className="badge">{years} yrs experience</span>
+                <span className="badge">{years} {t.attorneys.yrsExperience}</span>
               </div>
               <div className="info">
                 <div>
@@ -56,7 +80,7 @@ export function Attorneys({ attorneys }: AttorneysProps) {
 
         <div style={{ marginTop: 48 }} className="reveal">
           <a href="#contact" className="linkarrow">
-            Meet all 15 attorneys <ArrowRight />
+            {t.attorneys.meetAll} <ArrowRight />
           </a>
         </div>
       </div>

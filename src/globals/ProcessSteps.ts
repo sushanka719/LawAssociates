@@ -12,6 +12,7 @@ export const ProcessSteps: GlobalConfig = {
       name: 'sectionHeadline',
       type: 'text',
       defaultValue: 'A clear path from first call to resolution.',
+      localized: true,
     },
     {
       name: 'steps',
@@ -26,11 +27,13 @@ export const ProcessSteps: GlobalConfig = {
           name: 'title',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'description',
           type: 'textarea',
           required: true,
+          localized: true,
         },
       ],
     },

@@ -1,5 +1,9 @@
+'use client'
+
 import { ArrowRight } from 'lucide-react'
 
+import { useLanguage } from '@/providers/Language'
+import { getTranslations } from '../translations'
 import type { PayloadSiteSettings } from '../types/payload'
 
 interface HeroProps {
@@ -19,20 +23,23 @@ function renderHeadline(text: string, emphasis: string) {
 }
 
 export function Hero({ siteSettings }: HeroProps) {
-  const eyebrow = siteSettings?.heroEyebrow || 'Aurelius Legal Partners · Est. 1998'
-  const headlineText =
-    siteSettings?.heroHeadline ||
-    'Strategic counsel for the matters that define your future.'
-  const headlineEmphasis = siteSettings?.heroHeadlineEmphasis || 'define'
-  const lead =
-    siteSettings?.heroLead ||
-    'For more than two decades, Aurelius Legal Partners has guided corporations, founders, and families through their most consequential legal challenges — pairing rigorous strategy with the discretion and resolve our clients depend on.'
-  const ctaPrimary = siteSettings?.heroCtaPrimary || 'Schedule a Consultation'
-  const ctaSecondary = siteSettings?.heroCtaSecondary || 'Explore Practice Areas'
-  const statSatisfaction = siteSettings?.heroStatSatisfaction || '98%'
-  const statRecovered = siteSettings?.statRecovered || '$1.2B'
-  const statYears = siteSettings?.statYears || '20+'
-  const statCases = siteSettings?.statCases || '500+'
+  const { language } = useLanguage()
+  const t = getTranslations(language)
+
+  const eyebrow = language === 'ne' ? t.hero.eyebrow : (siteSettings?.heroEyebrow || t.hero.eyebrow)
+  const headlineText = language === 'ne' ? t.hero.headline : (siteSettings?.heroHeadline || t.hero.headline)
+  const headlineEmphasis = language === 'ne' ? t.hero.headlineEmphasis : (siteSettings?.heroHeadlineEmphasis || t.hero.headlineEmphasis)
+  const lead = language === 'ne' ? t.hero.lead : (siteSettings?.heroLead || t.hero.lead)
+  const ctaPrimary = language === 'ne' ? t.hero.ctaPrimary : (siteSettings?.heroCtaPrimary || t.hero.ctaPrimary)
+  const ctaSecondary = language === 'ne' ? t.hero.ctaSecondary : (siteSettings?.heroCtaSecondary || t.hero.ctaSecondary)
+  const statSatisfaction = language === 'ne' ? t.hero.statSatisfaction : (siteSettings?.heroStatSatisfaction || t.hero.statSatisfaction)
+  const statRecovered = language === 'ne' ? t.hero.statRecovered : (siteSettings?.statRecovered || t.hero.statRecovered)
+  const statYears = language === 'ne' ? t.hero.statYears : (siteSettings?.statYears || t.hero.statYears)
+  const statCases = language === 'ne' ? t.hero.statCases : (siteSettings?.statCases || t.hero.statCases)
+  const statYearsLabel = language === 'ne' ? t.hero.statYearsLabel : t.hero.statYearsLabel
+  const statCasesLabel = language === 'ne' ? t.hero.statCasesLabel : t.hero.statCasesLabel
+  const statRecoveredLabel = language === 'ne' ? t.hero.statRecoveredLabel : t.hero.statRecoveredLabel
+  const statSatisfactionLabel = language === 'ne' ? t.hero.statSatisfactionLabel : t.hero.statSatisfactionLabel
 
   return (
     <section className="hero la-section" data-screen-label="Hero">
@@ -66,11 +73,11 @@ export function Hero({ siteSettings }: HeroProps) {
               <a href="#practice" className="btn btn-outline">{ctaSecondary}</a>
             </div>
             <div className="hero-trustline">
-              <span><b>{statYears}</b>Years of practice</span>
+              <span><b>{statYears}</b>{statYearsLabel}</span>
               <span className="sep" aria-hidden="true" />
-              <span><b>{statCases}</b>Matters resolved</span>
+              <span><b>{statCases}</b>{statCasesLabel}</span>
               <span className="sep" aria-hidden="true" />
-              <span><b>{statRecovered}</b>Recovered &amp; protected</span>
+              <span><b>{statRecovered}</b>{statRecoveredLabel}</span>
             </div>
           </div>
           <div className="hero-media reveal d1" aria-hidden="true">
@@ -93,7 +100,7 @@ export function Hero({ siteSettings }: HeroProps) {
             <div className="hero-plate">
               <span className="big">{statSatisfaction}</span>
               <span className="vr" />
-              <span className="lab">Client satisfaction across representations</span>
+              <span className="lab">{statSatisfactionLabel}</span>
             </div>
           </div>
         </div>

@@ -1,3 +1,7 @@
+'use client'
+
+import { useLanguage } from '@/providers/Language'
+import { getTranslations } from '../translations'
 import type { PayloadProcessSteps } from '../types/payload'
 
 interface ProcessProps {
@@ -5,21 +9,29 @@ interface ProcessProps {
 }
 
 export function Process({ processSteps }: ProcessProps) {
-  const headline =
-    processSteps?.sectionHeadline || 'A clear path from first call to resolution.'
+  const { language } = useLanguage()
+  const t = getTranslations(language)
 
-  const steps = (processSteps?.steps ?? []).map((s) => ({
-    key: String(s.number),
-    num: String(s.number),
-    title: s.title,
-    desc: s.description,
-  }))
+  const headline = language === 'ne'
+    ? t.process.headline
+    : (processSteps?.sectionHeadline || t.process.headline)
+
+  const steps = language === 'ne'
+    ? t.process.steps.map((s) => ({ key: s.num, num: s.num, title: s.title, desc: s.desc }))
+    : (processSteps?.steps ?? []).length > 0
+      ? (processSteps?.steps ?? []).map((s) => ({
+          key: String(s.number),
+          num: String(s.number),
+          title: s.title,
+          desc: s.description,
+        }))
+      : t.process.steps.map((s) => ({ key: s.num, num: s.num, title: s.title, desc: s.desc }))
 
   return (
     <section className="la-section subtle-bg" data-screen-label="Process">
       <div className="la-container">
         <div className="sec-head center reveal" style={{ marginBottom: 72 }}>
-          <p className="eyebrow">How We Work</p>
+          <p className="eyebrow">{t.process.eyebrow}</p>
           <h2 className="display d-lg">{headline}</h2>
         </div>
         <div className="steps">

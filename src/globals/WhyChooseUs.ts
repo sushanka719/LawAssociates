@@ -12,20 +12,24 @@ export const WhyChooseUs: GlobalConfig = {
       name: 'sectionEyebrow',
       type: 'text',
       defaultValue: 'Why Aurelius',
+      localized: true,
     },
     {
       name: 'sectionHeadline',
       type: 'text',
       defaultValue:
         'A standard of representation that institutions and individuals return to.',
+      localized: true,
     },
     {
       name: 'partnerQuote',
       type: 'textarea',
+      localized: true,
     },
     {
       name: 'partnerQuoteCite',
       type: 'text',
+      localized: true,
     },
     {
       name: 'partnerQuoteImage',
@@ -45,11 +49,13 @@ export const WhyChooseUs: GlobalConfig = {
           name: 'title',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'description',
           type: 'textarea',
           required: true,
+          localized: true,
         },
       ],
     },

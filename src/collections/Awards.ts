@@ -20,11 +20,13 @@ export const Awards: CollectionConfig = {
       name: 'organization',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'distinction',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'icon',

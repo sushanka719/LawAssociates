@@ -17,6 +17,7 @@ export const Footer: GlobalConfig = {
           name: 'title',
           type: 'text',
           required: true,
+          localized: true,
         },
         {
           name: 'links',
@@ -26,6 +27,7 @@ export const Footer: GlobalConfig = {
               name: 'label',
               type: 'text',
               required: true,
+              localized: true,
             },
             {
               name: 'url',
@@ -41,6 +43,7 @@ export const Footer: GlobalConfig = {
       type: 'text',
       defaultValue:
         'Attorney Advertising · Prior results do not guarantee a similar outcome.',
+      localized: true,
     },
   ],
   hooks: {

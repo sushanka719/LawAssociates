@@ -1,3 +1,7 @@
+'use client'
+
+import { useLanguage } from '@/providers/Language'
+import { getTranslations } from '../translations'
 import type { PayloadSiteSettings } from '../types/payload'
 
 interface StatisticsProps {
@@ -5,26 +9,29 @@ interface StatisticsProps {
 }
 
 export function Statistics({ siteSettings }: StatisticsProps) {
+  const { language } = useLanguage()
+  const t = getTranslations(language)
+
   const stats = [
     {
-      num: siteSettings?.statYears ?? '20',
-      sup: '+',
-      lab: siteSettings?.statYearsLabel ?? 'Years of combined excellence',
+      num: language === 'ne' ? t.hero.statYears : (siteSettings?.statYears ?? '20'),
+      sup: language === 'ne' ? '' : '+',
+      lab: language === 'ne' ? t.stats.yearsLabel : (siteSettings?.statYearsLabel ?? t.stats.yearsLabel),
     },
     {
-      num: siteSettings?.statCases ?? '500',
-      sup: '+',
-      lab: siteSettings?.statCasesLabel ?? 'Cases successfully resolved',
+      num: language === 'ne' ? t.hero.statCases : (siteSettings?.statCases ?? '500'),
+      sup: language === 'ne' ? '' : '+',
+      lab: language === 'ne' ? t.stats.casesLabel : (siteSettings?.statCasesLabel ?? t.stats.casesLabel),
     },
     {
       num: siteSettings?.statAttorneys ?? '15',
       sup: '',
-      lab: siteSettings?.statAttorneysLabel ?? 'Licensed attorneys & counsel',
+      lab: language === 'ne' ? t.stats.attorneysLabel : (siteSettings?.statAttorneysLabel ?? t.stats.attorneysLabel),
     },
     {
-      num: siteSettings?.statSatisfaction ?? '98',
-      sup: '%',
-      lab: siteSettings?.statSatisfactionLabel ?? 'Client satisfaction rating',
+      num: language === 'ne' ? t.hero.statSatisfaction : (siteSettings?.statSatisfaction ?? '98'),
+      sup: language === 'ne' ? '' : '%',
+      lab: language === 'ne' ? t.stats.satisfactionLabel : (siteSettings?.statSatisfactionLabel ?? t.stats.satisfactionLabel),
     },
   ]
 

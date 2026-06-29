@@ -122,7 +122,7 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  fallbackLocale: null;
+  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'ne') | ('en' | 'ne')[];
   globals: {
     header: Header;
     footer: Footer;
@@ -137,7 +137,7 @@ export interface Config {
     'process-steps': ProcessStepsSelect<false> | ProcessStepsSelect<true>;
     'why-choose-us': WhyChooseUsSelect<false> | WhyChooseUsSelect<true>;
   };
-  locale: null;
+  locale: 'en' | 'ne';
   widgets: {
     collections: CollectionsWidget;
   };
@@ -2023,6 +2023,19 @@ export interface Footer {
  */
 export interface SiteSetting {
   id: number;
+  /**
+   * Translatable labels for the main navigation links
+   */
+  navLabels?: {
+    firmName?: string | null;
+    bookConsultation?: string | null;
+    practiceAreas?: string | null;
+    attorneys?: string | null;
+    about?: string | null;
+    caseResults?: string | null;
+    insights?: string | null;
+    contact?: string | null;
+  };
   heroEyebrow?: string | null;
   heroHeadline?: string | null;
   /**
@@ -2153,6 +2166,18 @@ export interface FooterSelect<T extends boolean = true> {
  * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
+  navLabels?:
+    | T
+    | {
+        firmName?: T;
+        bookConsultation?: T;
+        practiceAreas?: T;
+        attorneys?: T;
+        about?: T;
+        caseResults?: T;
+        insights?: T;
+        contact?: T;
+      };
   heroEyebrow?: T;
   heroHeadline?: T;
   heroHeadlineEmphasis?: T;

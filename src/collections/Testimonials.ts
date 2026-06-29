@@ -20,16 +20,19 @@ export const Testimonials: CollectionConfig = {
       name: 'quote',
       type: 'textarea',
       required: true,
+      localized: true,
     },
     {
       name: 'clientName',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'clientTitle',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'avatarInitial',

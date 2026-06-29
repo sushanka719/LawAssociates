@@ -3,6 +3,7 @@
  * Payload type casts in this file will resolve once `payload-types.ts` is
  * regenerated after the new collections/globals are migrated.
  */
+import { cookies } from 'next/headers'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 
@@ -34,8 +35,18 @@ import { Statistics } from './components/Statistics'
 import { Testimonials } from './components/Testimonials'
 import { WhyUs } from './components/WhyUs'
 
+// Disable caching so router.refresh() triggers a fresh server render
+export const dynamic = 'force-dynamic'
+
 export default async function LawAssociatesPage() {
+  // Read locale from cookie set by the language toggle in Nav
+  const cookieStore = await cookies()
+  const localeCookie = cookieStore.get('la-locale')?.value
+  const locale: 'en' | 'ne' = localeCookie === 'ne' ? 'ne' : 'en'
+
   const payload = await getPayload({ config: configPromise })
+
+  const fetchOpts = { locale, fallbackLocale: 'en' } as any
 
   const [
     siteSettings,
@@ -49,21 +60,21 @@ export default async function LawAssociatesPage() {
     insightsResult,
     awardsResult,
   ] = await Promise.all([
-    (payload.findGlobal({ slug: 'site-settings' as any, depth: 1, overrideAccess: false }) as Promise<any>).catch(() => null),
-    (payload.findGlobal({ slug: 'process-steps' as any, overrideAccess: false }) as Promise<any>).catch(() => null),
-    (payload.findGlobal({ slug: 'why-choose-us' as any, depth: 1, overrideAccess: false }) as Promise<any>).catch(() => null),
-    (payload.findGlobal({ slug: 'footer', overrideAccess: false }) as Promise<any>).catch(() => null),
-    (payload.find({ collection: 'practice-areas' as any, sort: 'order', limit: 8, overrideAccess: false }) as Promise<any>).catch(() => null),
-    (payload.find({ collection: 'attorneys' as any, where: { featured: { equals: true } }, sort: 'order', limit: 3, depth: 1, overrideAccess: false }) as Promise<any>).catch(() => null),
-    (payload.find({ collection: 'case-results' as any, where: { featured: { equals: true } }, sort: 'order', limit: 3, overrideAccess: false }) as Promise<any>).catch(() => null),
-    (payload.find({ collection: 'testimonials' as any, where: { featured: { equals: true } }, sort: 'order', depth: 1, overrideAccess: false }) as Promise<any>).catch(() => null),
-    (payload.find({ collection: 'insights' as any, sort: '-publishedDate', limit: 5, depth: 1, overrideAccess: false }) as Promise<any>).catch(() => null),
-    (payload.find({ collection: 'awards' as any, sort: 'order', overrideAccess: false }) as Promise<any>).catch(() => null),
+    (payload.findGlobal({ slug: 'site-settings' as any, depth: 1, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
+    (payload.findGlobal({ slug: 'process-steps' as any, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
+    (payload.findGlobal({ slug: 'why-choose-us' as any, depth: 1, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
+    (payload.findGlobal({ slug: 'footer', overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
+    (payload.find({ collection: 'practice-areas' as any, sort: 'order', limit: 8, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
+    (payload.find({ collection: 'attorneys' as any, where: { featured: { equals: true } }, sort: 'order', limit: 3, depth: 1, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
+    (payload.find({ collection: 'case-results' as any, where: { featured: { equals: true } }, sort: 'order', limit: 3, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
+    (payload.find({ collection: 'testimonials' as any, where: { featured: { equals: true } }, sort: 'order', depth: 1, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
+    (payload.find({ collection: 'insights' as any, sort: '-publishedDate', limit: 5, depth: 1, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
+    (payload.find({ collection: 'awards' as any, sort: 'order', overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
   ])
 
   return (
     <>
-      <Nav />
+      <Nav siteSettings={siteSettings as PayloadSiteSettings | null} />
       <main id="top">
         <Hero siteSettings={siteSettings as PayloadSiteSettings | null} />
         <Statistics siteSettings={siteSettings as PayloadSiteSettings | null} />

@@ -1,5 +1,9 @@
+'use client'
+
 import { Award, Globe, Lock, MessagesSquare, Scale, Target } from 'lucide-react'
 
+import { useLanguage } from '@/providers/Language'
+import { getTranslations } from '../translations'
 import type { PayloadWhyChooseUs } from '../types/payload'
 
 const ICON_MAP = { Scale, Target, MessagesSquare, Award, Lock, Globe, scale: Scale, target: Target, 'messages-square': MessagesSquare, award: Award, lock: Lock, globe: Globe } as const
@@ -10,22 +14,24 @@ interface WhyUsProps {
 }
 
 export function WhyUs({ whyChooseUs }: WhyUsProps) {
-  const eyebrow = whyChooseUs?.sectionEyebrow || 'Why Aurelius'
-  const headline =
-    whyChooseUs?.sectionHeadline ||
-    'A standard of representation that institutions and individuals return to.'
-  const quote =
-    whyChooseUs?.partnerQuote ||
-    'We do not measure success by the hours we bill, but by the outcomes we secure and the trust we keep.'
-  const cite =
-    whyChooseUs?.partnerQuoteCite || '— Eleanor Ashford-Vance, Managing Partner'
+  const { language } = useLanguage()
+  const t = getTranslations(language)
 
-  const items = (whyChooseUs?.items ?? []).map((item) => ({
-    icon: item.icon || '',
-    title: item.title || '',
-    desc: item.description || '',
-    key: item.id || item.title || '',
-  }))
+  const eyebrow = language === 'ne' ? t.whyUs.eyebrow : (whyChooseUs?.sectionEyebrow || t.whyUs.eyebrow)
+  const headline = language === 'ne' ? t.whyUs.headline : (whyChooseUs?.sectionHeadline || t.whyUs.headline)
+  const quote = language === 'ne' ? t.whyUs.quote : (whyChooseUs?.partnerQuote || t.whyUs.quote)
+  const cite = language === 'ne' ? t.whyUs.quoteCite : (whyChooseUs?.partnerQuoteCite || t.whyUs.quoteCite)
+
+  const items = language === 'ne'
+    ? t.whyUs.items.map((item) => ({ icon: item.icon, title: item.title, desc: item.desc, key: item.title }))
+    : (whyChooseUs?.items ?? []).length > 0
+      ? (whyChooseUs?.items ?? []).map((item) => ({
+          icon: item.icon || '',
+          title: item.title || '',
+          desc: item.description || '',
+          key: item.id || item.title || '',
+        }))
+      : t.whyUs.items.map((item) => ({ icon: item.icon, title: item.title, desc: item.desc, key: item.title }))
 
   return (
     <section className="la-section subtle-bg" id="about" data-screen-label="Why Choose Us">

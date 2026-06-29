@@ -86,6 +86,14 @@ export default buildConfig({
     Awards,
     ConsultationRequests,
   ],
+  localization: {
+    locales: [
+      { label: 'English', code: 'en' },
+      { label: 'नेपाली', code: 'ne' },
+    ],
+    defaultLocale: 'en',
+    fallback: true,
+  },
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, SiteSettings, ProcessSteps, WhyChooseUs],
   plugins,

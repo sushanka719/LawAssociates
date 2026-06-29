@@ -75,7 +75,19 @@ export type PayloadAward = {
   order?: number | null
 }
 
+export type PayloadNavLabels = {
+  firmName?: string | null
+  bookConsultation?: string | null
+  practiceAreas?: string | null
+  attorneys?: string | null
+  about?: string | null
+  caseResults?: string | null
+  insights?: string | null
+  contact?: string | null
+}
+
 export type PayloadSiteSettings = {
+  navLabels?: PayloadNavLabels | null
   heroEyebrow?: string | null
   heroHeadline?: string | null
   heroHeadlineEmphasis?: string | null

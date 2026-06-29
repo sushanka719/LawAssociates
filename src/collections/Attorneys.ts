@@ -33,11 +33,13 @@ export const Attorneys: CollectionConfig = {
       name: 'role',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'specialty',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'yearsExperience',
@@ -61,6 +63,7 @@ export const Attorneys: CollectionConfig = {
     {
       name: 'bio',
       type: 'richText',
+      localized: true,
     },
     {
       name: 'email',

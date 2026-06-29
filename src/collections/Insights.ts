@@ -28,6 +28,7 @@ export const Insights: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'slug',
@@ -55,6 +56,7 @@ export const Insights: CollectionConfig = {
       name: 'excerpt',
       type: 'textarea',
       required: true,
+      localized: true,
     },
     {
       name: 'coverImage',
@@ -88,6 +90,7 @@ export const Insights: CollectionConfig = {
       name: 'content',
       type: 'richText',
       required: true,
+      localized: true,
       editor: lexicalEditor({
         features: ({ rootFeatures }) => [
           ...rootFeatures,

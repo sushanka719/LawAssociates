@@ -20,11 +20,13 @@ export const PracticeAreas: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'shortDescription',
       type: 'textarea',
       required: true,
+      localized: true,
     },
     {
       name: 'order',
@@ -48,6 +50,7 @@ export const PracticeAreas: CollectionConfig = {
     {
       name: 'fullDescription',
       type: 'richText',
+      localized: true,
     },
   ],
 }

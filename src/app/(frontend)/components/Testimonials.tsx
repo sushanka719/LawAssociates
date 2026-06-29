@@ -3,6 +3,8 @@
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import { useLanguage } from '@/providers/Language'
+import { getTranslations } from '../translations'
 import type { PayloadTestimonial } from '../types/payload'
 
 interface TestimonialsProps {
@@ -10,13 +12,32 @@ interface TestimonialsProps {
 }
 
 export function Testimonials({ testimonials }: TestimonialsProps) {
-  const items = (testimonials ?? []).map((t) => ({
-    key: String(t.id),
-    quote: t.quote,
-    name: t.clientName,
-    role: t.clientTitle,
-    initial: t.avatarInitial || t.clientName.charAt(0),
-  }))
+  const { language } = useLanguage()
+  const t = getTranslations(language)
+
+  const items = language === 'ne'
+    ? t.testimonials.items.map((item, i) => ({
+        key: String(i),
+        quote: item.quote,
+        name: item.name,
+        role: item.role,
+        initial: item.initial,
+      }))
+    : (testimonials ?? []).length > 0
+      ? (testimonials ?? []).map((tst) => ({
+          key: String(tst.id),
+          quote: tst.quote,
+          name: tst.clientName,
+          role: tst.clientTitle,
+          initial: tst.avatarInitial || tst.clientName.charAt(0),
+        }))
+      : t.testimonials.items.map((item, i) => ({
+          key: String(i),
+          quote: item.quote,
+          name: item.name,
+          role: item.role,
+          initial: item.initial,
+        }))
 
   const [index, setIndex] = useState(0)
   const autoRef = useRef<ReturnType<typeof setInterval> | null>(null)
@@ -33,6 +54,9 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
     return () => { if (autoRef.current) clearInterval(autoRef.current) }
   }, [index]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // reset carousel when language changes
+  useEffect(() => { setIndex(0) }, [language])
+
   const stopAuto = () => { if (autoRef.current) clearInterval(autoRef.current) }
 
   return (
@@ -40,8 +64,8 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
       <div className="la-container">
         <div className="testi-layout">
           <div className="reveal">
-            <p className="eyebrow">Client Voices</p>
-            <h2 className="display d-md">Trusted by those with the most to protect.</h2>
+            <p className="eyebrow">{t.testimonials.eyebrow}</p>
+            <h2 className="display d-md">{t.testimonials.headline}</h2>
           </div>
 
           <div className="tcarousel reveal d1" onMouseEnter={stopAuto}>

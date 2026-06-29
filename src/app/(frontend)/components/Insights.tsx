@@ -1,14 +1,18 @@
+'use client'
+
 import { ArrowRight } from 'lucide-react'
 
+import { useLanguage } from '@/providers/Language'
+import { getTranslations } from '../translations'
 import type { PayloadInsight } from '../types/payload'
 
 interface InsightsProps {
   insights?: PayloadInsight[] | null
 }
 
-function formatDate(dateStr: string) {
+function formatDate(dateStr: string, lang: 'en' | 'ne') {
   try {
-    return new Date(dateStr).toLocaleDateString('en-US', {
+    return new Date(dateStr).toLocaleDateString(lang === 'ne' ? 'ne-NP' : 'en-US', {
       month: 'long',
       day: 'numeric',
       year: 'numeric',
@@ -19,6 +23,9 @@ function formatDate(dateStr: string) {
 }
 
 export function Insights({ insights }: InsightsProps) {
+  const { language } = useLanguage()
+  const t = getTranslations(language)
+
   const hasData = insights !== null && insights !== undefined && insights.length > 0
   const featured = hasData ? (insights!.find((i) => i.featured) || null) : null
   const list = hasData ? insights!.filter((i) => !i.featured).slice(0, 4) : null
@@ -28,13 +35,10 @@ export function Insights({ insights }: InsightsProps) {
       <div className="la-container">
         <div className="sec-split">
           <div className="reveal">
-            <p className="eyebrow">Insights</p>
-            <h2 className="display d-lg">Perspective on the law that shapes your decisions.</h2>
+            <p className="eyebrow">{t.insights.eyebrow}</p>
+            <h2 className="display d-lg">{t.insights.headline}</h2>
           </div>
-          <p className="lead reveal d1">
-            Analysis and guidance from our practice groups on the developments most relevant to
-            our clients.
-          </p>
+          <p className="lead reveal d1">{t.insights.lead}</p>
         </div>
 
         <div className="insights-layout">
@@ -56,23 +60,21 @@ export function Insights({ insights }: InsightsProps) {
             </div>
             <div className="art-meta">
               <span className="cat">
-                {featured?.category?.title ?? 'Business Law'}
+                {featured?.category?.title ?? t.insights.defaultCategory}
               </span>
               <span className="dot" aria-hidden="true" />
-              <span>{featured ? formatDate(featured.publishedDate) : 'June 12, 2026'}</span>
+              <span>{featured ? formatDate(featured.publishedDate, language) : t.insights.defaultDate}</span>
               <span className="dot" aria-hidden="true" />
-              <span>{featured?.readTime ? `${featured.readTime} min read` : '8 min read'}</span>
+              <span>{featured?.readTime ? `${featured.readTime} ${t.insights.minRead}` : t.insights.defaultReadTime}</span>
             </div>
             <h3>
-              {featured?.title ??
-                'What the new merger-review thresholds mean for mid-market acquisitions'}
+              {featured?.title ?? t.insights.defaultFeaturedTitle}
             </h3>
             <p>
-              {featured?.excerpt ??
-                'Recent changes to regulatory review are reshaping deal timelines. We break down the practical implications for buyers, sellers, and their counsel.'}
+              {featured?.excerpt ?? t.insights.defaultFeaturedExcerpt}
             </p>
             <a href="#" className="linkarrow" style={{ marginTop: 18 }}>
-              Read the analysis <ArrowRight />
+              {t.insights.readMore} <ArrowRight />
             </a>
           </article>
 
@@ -83,7 +85,7 @@ export function Insights({ insights }: InsightsProps) {
                     <div className="art-meta">
                       <span className="cat">{article.category?.title ?? ''}</span>
                       <span className="dot" aria-hidden="true" />
-                      <span>{article.readTime ? `${article.readTime} min` : ''}</span>
+                      <span>{article.readTime ? `${article.readTime} ${t.insights.minRead}` : ''}</span>
                     </div>
                     <h4>{article.title}</h4>
                   </a>

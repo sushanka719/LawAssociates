@@ -20,21 +20,25 @@ export const CaseResults: CollectionConfig = {
       name: 'headline',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'category',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'description',
       type: 'textarea',
       required: true,
+      localized: true,
     },
     {
       name: 'meta',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'order',
