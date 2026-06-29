@@ -6,12 +6,12 @@ import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { Logo } from '@/components/Logo/Logo'
 
 type FooterLink = { label: string; url: string }
-type FooterColumn = { title: string; links?: FooterLink[] }
+type FooterColumn = { title: string; links?: FooterLink[] | null; id?: string | null }
 
 export async function Footer() {
   const footerData = await getCachedGlobal('footer', 1)()
 
-  const columns: FooterColumn[] = footerData?.columns || []
+  const columns: FooterColumn[] = (footerData?.columns as FooterColumn[]) || []
   const navLinks = columns.flatMap((col) => col.links || [])
 
   return (
