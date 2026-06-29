@@ -50,7 +50,6 @@ export const Attorneys: CollectionConfig = {
       name: 'photo',
       type: 'upload',
       relationTo: 'media',
-      required: true,
     },
     {
       name: 'practiceAreas',

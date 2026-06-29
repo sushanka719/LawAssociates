@@ -139,20 +139,36 @@ function whyChooseUsData() {
 }
 
 const PRACTICE_AREAS = [
-  { title: 'Corporate & M&A', shortDescription: 'Formation, governance, financings, and cross-border transactions for companies at every stage.', fullDescription: 'Our corporate practice advises boards, investors, and management teams on the full spectrum of corporate matters.', icon: 'briefcase', slug: 'corporate-ma', order: 1 },
-  { title: 'Litigation & Disputes', shortDescription: 'Trial-tested advocacy in commercial, contractual, and high-stakes civil disputes.', fullDescription: 'We represent clients in complex commercial disputes before trial and appellate courts, arbitration panels, and regulatory bodies.', icon: 'scale', slug: 'litigation-disputes', order: 2 },
-  { title: 'Real Estate', shortDescription: 'Acquisitions, development, leasing, and complex property and land-use counsel.', fullDescription: 'Our real estate group advises on all aspects of commercial real estate transactions.', icon: 'building', slug: 'real-estate', order: 3 },
-  { title: 'Employment & Labour', shortDescription: 'Workforce strategy, executive agreements, investigations, and dispute resolution.', fullDescription: 'We guide employers and executives through the full range of employment matters.', icon: 'users', slug: 'employment-labour', order: 4 },
-  { title: 'Private Client & Family', shortDescription: 'Estate planning, wealth preservation, and sensitive family matters handled with discretion.', fullDescription: 'We provide bespoke counsel to individuals, families, and family-owned businesses.', icon: 'home', slug: 'private-client-family', order: 5 },
-  { title: 'Intellectual Property', shortDescription: 'Protection, licensing, and enforcement of the assets that drive enterprise value.', fullDescription: 'We protect and monetise intellectual property across all industries.', icon: 'lightbulb', slug: 'intellectual-property', order: 6 },
-  { title: 'Immigration', shortDescription: 'Business and family immigration, from talent mobility to complex visa strategy.', fullDescription: 'We advise employers and individuals on all aspects of immigration law.', icon: 'globe', slug: 'immigration', order: 7 },
-  { title: 'White-Collar Defense', shortDescription: 'Discreet representation in investigations, regulatory enquiries, and enforcement actions.', fullDescription: 'We defend individuals and organisations in criminal and regulatory proceedings.', icon: 'shield', slug: 'white-collar-defense', order: 8 },
+  { title: 'Corporate & M&A', shortDescription: 'Formation, governance, financings, and cross-border transactions for companies at every stage.', fullDescription: 'Our corporate practice advises boards, investors, and management teams on the full spectrum of corporate matters.', slug: 'corporate-ma', order: 1 },
+  { title: 'Litigation & Disputes', shortDescription: 'Trial-tested advocacy in commercial, contractual, and high-stakes civil disputes.', fullDescription: 'We represent clients in complex commercial disputes before trial and appellate courts, arbitration panels, and regulatory bodies.', slug: 'litigation-disputes', order: 2 },
+  { title: 'Real Estate', shortDescription: 'Acquisitions, development, leasing, and complex property and land-use counsel.', fullDescription: 'Our real estate group advises on all aspects of commercial real estate transactions.', slug: 'real-estate', order: 3 },
+  { title: 'Employment & Labour', shortDescription: 'Workforce strategy, executive agreements, investigations, and dispute resolution.', fullDescription: 'We guide employers and executives through the full range of employment matters.', slug: 'employment-labour', order: 4 },
+  { title: 'Private Client & Family', shortDescription: 'Estate planning, wealth preservation, and sensitive family matters handled with discretion.', fullDescription: 'We provide bespoke counsel to individuals, families, and family-owned businesses.', slug: 'private-client-family', order: 5 },
+  { title: 'Intellectual Property', shortDescription: 'Protection, licensing, and enforcement of the assets that drive enterprise value.', fullDescription: 'We protect and monetise intellectual property across all industries.', slug: 'intellectual-property', order: 6 },
+  { title: 'Immigration', shortDescription: 'Business and family immigration, from talent mobility to complex visa strategy.', fullDescription: 'We advise employers and individuals on all aspects of immigration law.', slug: 'immigration', order: 7 },
+  { title: 'White-Collar Defense', shortDescription: 'Discreet representation in investigations, regulatory enquiries, and enforcement actions.', fullDescription: 'We defend individuals and organisations in criminal and regulatory proceedings.', slug: 'white-collar-defense', order: 8 },
 ]
 
+function richText(text) {
+  return {
+    root: {
+      type: 'root', format: '', indent: 0, version: 1,
+      children: [{
+        type: 'paragraph', format: '', indent: 0, version: 1,
+        children: [{ type: 'text', format: 0, mode: 'normal', style: '', text, version: 1 }],
+      }],
+    },
+  }
+}
+
+function toSlug(name) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+}
+
 const ATTORNEYS = [
-  { name: 'Eleanor Ashford-Vance', role: 'Managing Partner', specialty: 'Corporate & Mergers · Governance', yearsExperience: 24, bio: 'Eleanor leads the firm with 24 years of experience advising boards and executives on their most consequential decisions.', featured: true, order: 1 },
-  { name: 'Marcus J. Holloway', role: 'Partner · Litigation', specialty: 'Commercial & Civil Disputes', yearsExperience: 19, bio: 'Marcus has tried cases in federal and state courts across the country, with a focus on high-value commercial disputes.', featured: true, order: 2 },
-  { name: 'Priya Nair Castellanos', role: 'Partner · Private Client', specialty: 'Estates, Family & Wealth', yearsExperience: 17, bio: 'Priya advises ultra-high-net-worth families on estate planning, wealth transfer, and complex family matters.', featured: true, order: 3 },
+  { name: 'Eleanor Ashford-Vance', slug: toSlug('Eleanor Ashford-Vance'), role: 'Managing Partner', specialty: 'Corporate & Mergers · Governance', yearsExperience: 24, bio: richText('Eleanor leads the firm with 24 years of experience advising boards and executives on their most consequential decisions.'), featured: true, order: 1 },
+  { name: 'Marcus J. Holloway', slug: toSlug('Marcus J. Holloway'), role: 'Partner · Litigation', specialty: 'Commercial & Civil Disputes', yearsExperience: 19, bio: richText('Marcus has tried cases in federal and state courts across the country, with a focus on high-value commercial disputes.'), featured: true, order: 2 },
+  { name: 'Priya Nair Castellanos', slug: toSlug('Priya Nair Castellanos'), role: 'Partner · Private Client', specialty: 'Estates, Family & Wealth', yearsExperience: 17, bio: richText('Priya advises ultra-high-net-worth families on estate planning, wealth transfer, and complex family matters.'), featured: true, order: 3 },
 ]
 
 const CASE_RESULTS = [
@@ -273,6 +289,7 @@ async function main() {
       publishedDate: '2026-06-12T00:00:00.000Z',
       readTime: 8,
       excerpt: 'Recent changes to regulatory review are reshaping deal timelines. We break down the practical implications for buyers, sellers, and their counsel.',
+      content: richText('Recent changes to regulatory review are reshaping deal timelines. We break down the practical implications for buyers, sellers, and their counsel.'),
       category: businessLawId || undefined,
       featured: true,
     },
@@ -282,6 +299,7 @@ async function main() {
       publishedDate: '2026-05-28T00:00:00.000Z',
       readTime: 6,
       excerpt: 'Arbitration can be faster and more private than litigation — but the choice has long-term consequences. Here is what to weigh before signing.',
+      content: richText('Arbitration can be faster and more private than litigation — but the choice has long-term consequences. Here is what to weigh before signing.'),
       category: litigationId || undefined,
       featured: false,
     },
@@ -291,6 +309,7 @@ async function main() {
       publishedDate: '2026-05-14T00:00:00.000Z',
       readTime: 5,
       excerpt: 'A well-structured estate plan does more than transfer assets — it preserves relationships and reflects the values you want to carry forward.',
+      content: richText('A well-structured estate plan does more than transfer assets — it preserves relationships and reflects the values you want to carry forward.'),
       category: familyLawId || undefined,
       featured: false,
     },
@@ -300,6 +319,7 @@ async function main() {
       publishedDate: '2026-04-30T00:00:00.000Z',
       readTime: 7,
       excerpt: 'Companies that navigate investigations well are usually the ones that prepared in advance. Here is what a practical playbook looks like.',
+      content: richText('Companies that navigate investigations well are usually the ones that prepared in advance. Here is what a practical playbook looks like.'),
       category: complianceId || undefined,
       featured: false,
     },
@@ -309,6 +329,7 @@ async function main() {
       publishedDate: '2026-04-15T00:00:00.000Z',
       readTime: 4,
       excerpt: 'We review the most common flashpoints in executive separation negotiations — and how to avoid leaving them unresolved.',
+      content: richText('We review the most common flashpoints in executive separation negotiations — and how to avoid leaving them unresolved.'),
       category: businessLawId || undefined,
       featured: false,
     },

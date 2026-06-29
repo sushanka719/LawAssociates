@@ -841,7 +841,7 @@ export interface Attorney {
   role: string;
   specialty: string;
   yearsExperience: number;
-  photo: number | Media;
+  photo?: (number | null) | Media;
   practiceAreas?: (number | PracticeArea)[] | null;
   bio?: {
     root: {
