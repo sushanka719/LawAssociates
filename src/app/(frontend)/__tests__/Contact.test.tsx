@@ -1,5 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { vi } from 'vitest'
+
+vi.mock('@/providers/Language', () => ({
+  useLanguage: () => ({ language: 'en', toggle: vi.fn() }),
+}))
+
+global.fetch = vi.fn().mockResolvedValue({ ok: true } as Response)
 
 import { Contact } from '../components/Contact'
 import type { PayloadSiteSettings } from '../types/payload'
@@ -37,7 +44,7 @@ describe('Contact', () => {
     await userEvent.type(screen.getByLabelText(/full name/i), 'Jane Doe')
     await userEvent.type(screen.getByLabelText(/email/i), 'jane@example.com')
     await userEvent.type(screen.getByLabelText(/how can we help/i), 'Legal advice needed')
-    await userEvent.click(screen.getByRole('button', { name: /request consultation/i }))
+    await userEvent.click(screen.getByRole('button', { name: /send message/i }))
     expect(await screen.findByText(/we'll be in touch/i)).toBeInTheDocument()
   })
 

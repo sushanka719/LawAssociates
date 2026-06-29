@@ -3,8 +3,18 @@ import userEvent from '@testing-library/user-event'
 import { vi } from 'vitest'
 
 const mockSetTheme = vi.fn()
+const mockRefresh = vi.fn()
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ refresh: mockRefresh }),
+}))
+
 vi.mock('@/providers/Theme', () => ({
   useTheme: () => ({ theme: 'light', setTheme: mockSetTheme }),
+}))
+
+vi.mock('@/providers/Language', () => ({
+  useLanguage: () => ({ language: 'en', toggle: vi.fn() }),
 }))
 
 import { Nav } from '../components/Nav'
@@ -12,7 +22,7 @@ import { Nav } from '../components/Nav'
 describe('Nav', () => {
   it('renders the firm brand links', () => {
     render(<Nav />)
-    const brands = screen.getAllByRole('link', { name: /aurelius legal partners home/i })
+    const brands = screen.getAllByRole('link', { name: /law associates home/i })
     expect(brands.length).toBeGreaterThanOrEqual(1)
   })
 
