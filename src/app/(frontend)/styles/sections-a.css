@@ -46,7 +46,11 @@
 @media (max-width: 540px) { .why-list { grid-template-columns: 1fr; } }
 
 /* attorneys */
-.attorneys-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
+.atty-carousel { position: relative; }
+.attrack { overflow: hidden; }
+.atslides { display: flex; gap: 36px; transition: transform .55s var(--ease); }
+.atslide { min-width: calc(33.333% - 24px); flex-shrink: 0; }
+
 .attorney .photo { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 4/5; background: var(--bg-subtle); }
 .attorney .photo .badge {
   position: absolute; left: 14px; bottom: 14px;
@@ -60,9 +64,38 @@
 .attorney .spec { color: var(--muted); font-size: 13.5px; margin-top: 10px; }
 .attorney .prof { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line-strong); display: grid; place-items: center; color: var(--ink-2); flex-shrink: 0; transition: all .2s var(--ease); }
 .attorney .prof:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+[data-theme="dark"] .attorney .prof:hover { background: #fff; color: var(--navy-900); }
 .attorney .prof svg { width: 16px; height: 16px; }
-@media (max-width: 920px) { .attorneys-grid { grid-template-columns: 1fr 1fr; gap: 28px; } }
-@media (max-width: 560px) { .attorneys-grid { grid-template-columns: 1fr; } }
+
+.atfooter { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; }
+.atnav { display: flex; gap: 10px; }
+.atnav button {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 1px solid var(--line-strong); background: var(--surface);
+  color: var(--ink); display: grid; place-items: center;
+  transition: all .18s var(--ease); cursor: pointer;
+}
+.atnav button:hover:not(:disabled) { background: var(--navy); color: #fff; border-color: var(--navy); }
+[data-theme="dark"] .atnav button:hover:not(:disabled) { background: #fff; color: var(--navy-900); }
+.atnav button:disabled { opacity: .35; cursor: default; }
+.atnav button svg { width: 18px; height: 18px; }
+.atdots { display: flex; gap: 8px; align-items: center; }
+.atdot {
+  width: 8px; height: 8px; border-radius: 50%;
+  border: none; background: var(--line-strong);
+  cursor: pointer; transition: all .22s var(--ease); padding: 0;
+}
+.atdot.active { background: var(--navy); width: 24px; border-radius: 4px; }
+[data-theme="dark"] .atdot.active { background: var(--gold); }
+
+@media (max-width: 920px) {
+  .atslides { gap: 28px; }
+  .atslide { min-width: calc(50% - 14px); }
+}
+@media (max-width: 560px) {
+  .atslides { gap: 0; }
+  .atslide { min-width: 100%; }
+}
 
 /* case results */
 .cases-head { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; margin-bottom: 56px; }

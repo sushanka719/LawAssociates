@@ -3,6 +3,7 @@
 import { ArrowRight } from 'lucide-react'
 
 import { useLanguage } from '@/providers/Language'
+import { resolveMediaUrl } from '@/utilities/getMediaUrl'
 import { getTranslations } from '../translations'
 import type { PayloadSiteSettings } from '../types/payload'
 
@@ -44,11 +45,11 @@ export function Hero({ siteSettings }: HeroProps) {
   return (
     <section className="hero la-section" data-screen-label="Hero">
       <div className="hero-bg">
-        {siteSettings?.heroBgImage?.url ? (
+        {siteSettings?.heroBgImage ? (
           <img
-            src={siteSettings.heroBgImage.url}
+            src={resolveMediaUrl(siteSettings.heroBgImage)}
             alt={siteSettings.heroBgImage.alt || ''}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
           />
         ) : (
           <img
@@ -83,11 +84,11 @@ export function Hero({ siteSettings }: HeroProps) {
           <div className="hero-media reveal d1" aria-hidden="true">
             <span className="frame" />
             <div className="hero-portrait">
-              {siteSettings?.heroPortraitImage?.url ? (
+              {siteSettings?.heroPortraitImage ? (
                 <img
-                  src={siteSettings.heroPortraitImage.url}
+                  src={resolveMediaUrl(siteSettings.heroPortraitImage)}
                   alt={siteSettings.heroPortraitImage.alt || ''}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
               ) : (
                 <img

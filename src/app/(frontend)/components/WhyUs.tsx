@@ -3,6 +3,7 @@
 import { Award, Globe, Lock, MessagesSquare, Scale, Target } from 'lucide-react'
 
 import { useLanguage } from '@/providers/Language'
+import { resolveMediaUrl } from '@/utilities/getMediaUrl'
 import { getTranslations } from '../translations'
 import type { PayloadWhyChooseUs } from '../types/payload'
 
@@ -39,11 +40,11 @@ export function WhyUs({ whyChooseUs }: WhyUsProps) {
         <div className="why-layout">
           <div className="why-media reveal">
             <div className="why-media-img">
-              {whyChooseUs?.partnerQuoteImage?.url ? (
+              {whyChooseUs?.partnerQuoteImage ? (
                 <img
-                  src={whyChooseUs.partnerQuoteImage.url}
+                  src={resolveMediaUrl(whyChooseUs.partnerQuoteImage)}
                   alt={whyChooseUs.partnerQuoteImage.alt || ''}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
               ) : (
                 <img

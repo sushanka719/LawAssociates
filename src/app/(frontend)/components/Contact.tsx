@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { useLanguage } from '@/providers/Language'
+import { resolveMediaUrl } from '@/utilities/getMediaUrl'
 import { getTranslations } from '../translations'
 import type { PayloadSiteSettings } from '../types/payload'
 
@@ -219,11 +220,11 @@ export function Contact({ siteSettings }: ContactProps) {
           <aside className="contact-aside reveal d1">
             <div className="contact-card">
               <div className="contact-map">
-                {mapImage?.url ? (
+                {mapImage ? (
                   <img
-                    src={mapImage.url}
+                    src={resolveMediaUrl(mapImage)}
                     alt={mapImage.alt || 'Office location'}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                   />
                 ) : (
                   <img

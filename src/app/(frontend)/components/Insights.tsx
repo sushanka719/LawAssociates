@@ -3,6 +3,7 @@
 import { ArrowRight } from 'lucide-react'
 
 import { useLanguage } from '@/providers/Language'
+import { resolveMediaUrl } from '@/utilities/getMediaUrl'
 import { getTranslations } from '../translations'
 import type { PayloadInsight } from '../types/payload'
 
@@ -44,11 +45,11 @@ export function Insights({ insights }: InsightsProps) {
         <div className="insights-layout">
           <article className="feat-article reveal">
             <div className="feat-article-img">
-              {featured?.coverImage?.url ? (
+              {featured?.coverImage ? (
                 <img
-                  src={featured.coverImage.url}
+                  src={resolveMediaUrl(featured.coverImage)}
                   alt={featured.coverImage.alt || ''}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
               ) : (
                 <img

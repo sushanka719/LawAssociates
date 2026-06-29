@@ -65,7 +65,7 @@ export default async function LawAssociatesPage() {
     (payload.findGlobal({ slug: 'why-choose-us' as any, depth: 1, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
     (payload.findGlobal({ slug: 'footer', overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
     (payload.find({ collection: 'practice-areas' as any, sort: 'order', limit: 8, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
-    (payload.find({ collection: 'attorneys' as any, where: { featured: { equals: true } }, sort: 'order', limit: 3, depth: 1, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
+    (payload.find({ collection: 'attorneys' as any, where: { featured: { equals: true } }, sort: 'order', limit: 10, depth: 1, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
     (payload.find({ collection: 'case-results' as any, where: { featured: { equals: true } }, sort: 'order', limit: 3, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
     (payload.find({ collection: 'testimonials' as any, where: { featured: { equals: true } }, sort: 'order', depth: 1, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
     (payload.find({ collection: 'insights' as any, sort: '-publishedDate', limit: 5, depth: 1, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
