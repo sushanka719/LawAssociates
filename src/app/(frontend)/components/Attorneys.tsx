@@ -43,11 +43,11 @@ export function Attorneys({ attorneys }: AttorneysProps) {
     photoAlt: a.photo?.alt || a.name,
   }))
 
-  // Use CMS data only when it has more entries than the translations roster;
-  // otherwise the translations list (kept up-to-date) is the source of truth.
+  // Use CMS data whenever it has any entries; fall back to translations only
+  // when CMS is empty (not yet seeded).
   const items = language === 'ne'
     ? fallbackItems
-    : cmsItems.length > fallbackItems.length
+    : cmsItems.length > 0
       ? cmsItems
       : fallbackItems
 
