@@ -18,6 +18,8 @@ export const SiteSettings: GlobalConfig = {
         { name: 'firmName', type: 'text', defaultValue: 'Law Associates', localized: true },
         { name: 'bookConsultation', type: 'text', defaultValue: 'Book Consultation', localized: true },
         { name: 'practiceAreas', type: 'text', defaultValue: 'Practice Areas', localized: true },
+        { name: 'services', type: 'text', defaultValue: 'Services', localized: true },
+        { name: 'jurisdiction', type: 'text', defaultValue: 'Jurisdiction', localized: true },
         { name: 'attorneys', type: 'text', defaultValue: 'Attorneys', localized: true },
         { name: 'about', type: 'text', defaultValue: 'About', localized: true },
         { name: 'caseResults', type: 'text', defaultValue: 'Case Results', localized: true },

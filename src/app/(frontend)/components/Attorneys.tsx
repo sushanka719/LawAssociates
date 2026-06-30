@@ -15,41 +15,39 @@ export function Attorneys({ attorneys }: AttorneysProps) {
   const { language } = useLanguage()
   const t = getTranslations(language)
 
+  const fallbackItems = t.attorneys.items.map((a, i) => ({
+    id: String(i),
+    name: a.name,
+    role: a.role,
+    spec: a.spec,
+    years: a.years,
+    photoUrl: null as string | null,
+    photoAlt: a.name,
+  }))
+
+  const cmsItems = (attorneys ?? []).map((a) => ({
+    id: String(a.id),
+    name: a.name,
+    role: a.role,
+    spec: a.specialty,
+    years: String(a.yearsExperience),
+    photoUrl: (() => {
+      const photo = a.photo
+      if (!photo) return null
+      const pub = process.env.NEXT_PUBLIC_R2_PUBLIC_URL
+      if (pub && photo.filename) return `${pub}/${photo.filename}`
+      return photo.url || null
+    })(),
+    photoAlt: a.photo?.alt || a.name,
+  }))
+
+  // Use CMS data only when it has more entries than the translations roster;
+  // otherwise the translations list (kept up-to-date) is the source of truth.
   const items = language === 'ne'
-    ? t.attorneys.items.map((a, i) => ({
-        id: String(i),
-        name: a.name,
-        role: a.role,
-        spec: a.spec,
-        years: a.years,
-        photoUrl: null as string | null,
-        photoAlt: a.name,
-      }))
-    : (attorneys ?? []).length > 0
-      ? (attorneys ?? []).map((a) => ({
-          id: String(a.id),
-          name: a.name,
-          role: a.role,
-          spec: a.specialty,
-          years: String(a.yearsExperience),
-          photoUrl: (() => {
-            const photo = a.photo
-            if (!photo) return null
-            const pub = process.env.NEXT_PUBLIC_R2_PUBLIC_URL
-            if (pub && photo.filename) return `${pub}/${photo.filename}`
-            return photo.url || null
-          })(),
-          photoAlt: a.photo?.alt || a.name,
-        }))
-      : t.attorneys.items.map((a, i) => ({
-          id: String(i),
-          name: a.name,
-          role: a.role,
-          spec: a.spec,
-          years: a.years,
-          photoUrl: null as string | null,
-          photoAlt: a.name,
-        }))
+    ? fallbackItems
+    : cmsItems.length > fallbackItems.length
+      ? cmsItems
+      : fallbackItems
 
   const count = items.length
   const trackRef = useRef<HTMLDivElement>(null)

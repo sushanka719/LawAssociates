@@ -31,12 +31,14 @@ export function Nav({ siteSettings }: NavProps) {
   // CMS nav labels override translations when present
   const nl = siteSettings?.navLabels
   const navLinks = [
-    { href: '#practice', label: nl?.practiceAreas || t.nav.links[0].label },
-    { href: '#attorneys', label: nl?.attorneys    || t.nav.links[1].label },
-    { href: '#about',    label: nl?.about         || t.nav.links[2].label },
-    { href: '#results',  label: nl?.caseResults   || t.nav.links[3].label },
-    { href: '#insights', label: nl?.insights      || t.nav.links[4].label },
-    { href: '#contact',  label: nl?.contact       || t.nav.links[5].label },
+    { href: '#practice',     label: nl?.practiceAreas || t.nav.links[0].label },
+    { href: '#services',     label: nl?.services      || t.nav.links[1].label },
+    { href: '#jurisdiction', label: nl?.jurisdiction  || t.nav.links[2].label },
+    { href: '#attorneys',    label: nl?.attorneys     || t.nav.links[3].label },
+    { href: '#about',        label: nl?.about         || t.nav.links[4].label },
+    { href: '#results',      label: nl?.caseResults   || t.nav.links[5].label },
+    { href: '#insights',     label: nl?.insights      || t.nav.links[6].label },
+    { href: '#contact',      label: nl?.contact       || t.nav.links[7].label },
   ]
   const firmName = nl?.firmName || t.nav.firmName
   const bookBtn  = nl?.bookConsultation || t.nav.bookBtn

@@ -1,13 +1,37 @@
 'use client'
 
-import { Award, Globe, Lock, MessagesSquare, Scale, Target } from 'lucide-react'
+import {
+  Award,
+  Briefcase,
+  Building2,
+  ClipboardCheck,
+  FileText,
+  Gavel,
+  Globe,
+  GraduationCap,
+  Handshake,
+  Laptop2,
+  Lock,
+  MessagesSquare,
+  Scale,
+  Search,
+  ShieldCheck,
+  Target,
+} from 'lucide-react'
 
 import { useLanguage } from '@/providers/Language'
 import { resolveMediaUrl } from '@/utilities/getMediaUrl'
 import { getTranslations } from '../translations'
 import type { PayloadWhyChooseUs } from '../types/payload'
 
-const ICON_MAP = { Scale, Target, MessagesSquare, Award, Lock, Globe, scale: Scale, target: Target, 'messages-square': MessagesSquare, award: Award, lock: Lock, globe: Globe } as const
+const ICON_MAP = {
+  Scale, Target, MessagesSquare, Award, Lock, Globe,
+  GraduationCap, Briefcase, Building2, ClipboardCheck,
+  FileText, Handshake, Gavel, Search, ShieldCheck, Laptop2,
+  // kebab-case aliases stored in old CMS records
+  scale: Scale, target: Target, 'messages-square': MessagesSquare,
+  award: Award, lock: Lock, globe: Globe,
+} as const
 type IconKey = keyof typeof ICON_MAP
 
 interface WhyUsProps {

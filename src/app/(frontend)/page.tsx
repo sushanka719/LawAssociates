@@ -11,8 +11,10 @@ import type {
   PayloadAttorney,
   PayloadAward,
   PayloadCaseResult,
+  PayloadFirmService,
   PayloadFooter,
   PayloadInsight,
+  PayloadJurisdiction,
   PayloadPracticeArea,
   PayloadProcessSteps,
   PayloadSiteSettings,
@@ -28,9 +30,11 @@ import { CtaBand } from './components/CtaBand'
 import { Footer } from './components/Footer'
 import { Hero } from './components/Hero'
 import { Insights } from './components/Insights'
+import { Jurisdiction } from './components/Jurisdiction'
 import { Nav } from './components/Nav'
 import { PracticeAreas } from './components/PracticeAreas'
 import { Process } from './components/Process'
+import { Services } from './components/Services'
 import { Statistics } from './components/Statistics'
 import { Testimonials } from './components/Testimonials'
 import { WhyUs } from './components/WhyUs'
@@ -52,8 +56,10 @@ export default async function LawAssociatesPage() {
     siteSettings,
     processSteps,
     whyChooseUs,
+    jurisdiction,
     footer,
     practiceAreasResult,
+    firmServicesResult,
     attorneysResult,
     caseResultsResult,
     testimonialsResult,
@@ -63,9 +69,11 @@ export default async function LawAssociatesPage() {
     (payload.findGlobal({ slug: 'site-settings' as any, depth: 1, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
     (payload.findGlobal({ slug: 'process-steps' as any, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
     (payload.findGlobal({ slug: 'why-choose-us' as any, depth: 1, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
+    (payload.findGlobal({ slug: 'jurisdiction' as any, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
     (payload.findGlobal({ slug: 'footer', overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
-    (payload.find({ collection: 'practice-areas' as any, sort: 'order', limit: 8, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
-    (payload.find({ collection: 'attorneys' as any, where: { featured: { equals: true } }, sort: 'order', limit: 10, depth: 1, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
+    (payload.find({ collection: 'practice-areas' as any, sort: 'order', limit: 18, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
+    (payload.find({ collection: 'firm-services' as any, sort: 'order', limit: 20, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
+    (payload.find({ collection: 'attorneys' as any, sort: 'order', limit: 20, depth: 1, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
     (payload.find({ collection: 'case-results' as any, where: { featured: { equals: true } }, sort: 'order', limit: 3, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
     (payload.find({ collection: 'testimonials' as any, where: { featured: { equals: true } }, sort: 'order', depth: 1, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
     (payload.find({ collection: 'insights' as any, sort: '-publishedDate', limit: 5, depth: 1, overrideAccess: false, ...fetchOpts }) as Promise<any>).catch(() => null),
@@ -79,6 +87,8 @@ export default async function LawAssociatesPage() {
         <Hero siteSettings={siteSettings as PayloadSiteSettings | null} />
         <Statistics siteSettings={siteSettings as PayloadSiteSettings | null} />
         <PracticeAreas practiceAreas={(practiceAreasResult?.docs ?? null) as PayloadPracticeArea[] | null} />
+        <Services firmServices={(firmServicesResult?.docs ?? null) as PayloadFirmService[] | null} />
+        <Jurisdiction jurisdiction={jurisdiction as PayloadJurisdiction | null} />
         <WhyUs whyChooseUs={whyChooseUs as PayloadWhyChooseUs | null} />
         <Attorneys attorneys={(attorneysResult?.docs ?? null) as PayloadAttorney[] | null} />
         <CaseResults caseResults={(caseResultsResult?.docs ?? null) as PayloadCaseResult[] | null} />

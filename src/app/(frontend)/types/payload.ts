@@ -75,10 +75,39 @@ export type PayloadAward = {
   order?: number | null
 }
 
+export type PayloadFirmService = {
+  id: string | number
+  title: string
+  description: string
+  order?: number | null
+}
+
+export type PayloadJurisdictionPoint = {
+  id?: string
+  text: string
+}
+
+export type PayloadJurisdictionBlock = {
+  id?: string
+  heading: string
+  icon?: string | null
+  description?: string | null
+  points?: PayloadJurisdictionPoint[] | null
+}
+
+export type PayloadJurisdiction = {
+  sectionEyebrow?: string | null
+  sectionHeadline?: string | null
+  sectionLead?: string | null
+  blocks?: PayloadJurisdictionBlock[] | null
+}
+
 export type PayloadNavLabels = {
   firmName?: string | null
   bookConsultation?: string | null
   practiceAreas?: string | null
+  services?: string | null
+  jurisdiction?: string | null
   attorneys?: string | null
   about?: string | null
   caseResults?: string | null

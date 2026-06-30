@@ -73,6 +73,7 @@ export interface Config {
     categories: Category;
     users: User;
     'practice-areas': PracticeArea;
+    'firm-services': FirmService;
     attorneys: Attorney;
     'case-results': CaseResult;
     testimonials: Testimonial;
@@ -102,6 +103,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'practice-areas': PracticeAreasSelect<false> | PracticeAreasSelect<true>;
+    'firm-services': FirmServicesSelect<false> | FirmServicesSelect<true>;
     attorneys: AttorneysSelect<false> | AttorneysSelect<true>;
     'case-results': CaseResultsSelect<false> | CaseResultsSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
@@ -129,6 +131,7 @@ export interface Config {
     'site-settings': SiteSetting;
     'process-steps': ProcessStep;
     'why-choose-us': WhyChooseUs;
+    jurisdiction: Jurisdiction;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
@@ -136,6 +139,7 @@ export interface Config {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     'process-steps': ProcessStepsSelect<false> | ProcessStepsSelect<true>;
     'why-choose-us': WhyChooseUsSelect<false> | WhyChooseUsSelect<true>;
+    jurisdiction: JurisdictionSelect<false> | JurisdictionSelect<true>;
   };
   locale: 'en' | 'ne';
   widgets: {
@@ -831,6 +835,29 @@ export interface PracticeArea {
   createdAt: string;
 }
 /**
+ * The 20 specific legal services this firm provides — displayed in the Services section.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "firm-services".
+ */
+export interface FirmService {
+  id: number;
+  /**
+   * Short service name, e.g. "Company Incorporation & Registration"
+   */
+  title: string;
+  /**
+   * One or two sentences describing what this service covers.
+   */
+  description: string;
+  /**
+   * Controls display order (ascending). Use 1–20.
+   */
+  order: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "attorneys".
  */
@@ -961,14 +988,24 @@ export interface ConsultationRequest {
   phone?: string | null;
   practiceArea?:
     | (
-        | 'corporate-ma'
-        | 'litigation-disputes'
-        | 'real-estate'
-        | 'employment-labour'
-        | 'private-client-family'
+        | 'corporate-commercial'
+        | 'banking-finance'
+        | 'mergers-acquisitions'
+        | 'foreign-investment'
+        | 'capital-markets'
+        | 'tax'
+        | 'labour-employment'
         | 'intellectual-property'
-        | 'immigration'
-        | 'white-collar-defense'
+        | 'real-estate'
+        | 'competition-law'
+        | 'insolvency-restructuring'
+        | 'dispute-resolution'
+        | 'international-arbitration'
+        | 'regulatory-compliance'
+        | 'company-secretarial'
+        | 'environmental-law'
+        | 'energy-infrastructure'
+        | 'it-data-privacy'
         | 'other'
       )
     | null;
@@ -1192,6 +1229,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'practice-areas';
         value: number | PracticeArea;
+      } | null)
+    | ({
+        relationTo: 'firm-services';
+        value: number | FirmService;
       } | null)
     | ({
         relationTo: 'attorneys';
@@ -1593,6 +1634,17 @@ export interface PracticeAreasSelect<T extends boolean = true> {
   slug?: T;
   icon?: T;
   fullDescription?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "firm-services_select".
+ */
+export interface FirmServicesSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  order?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -2030,6 +2082,8 @@ export interface SiteSetting {
     firmName?: string | null;
     bookConsultation?: string | null;
     practiceAreas?: string | null;
+    services?: string | null;
+    jurisdiction?: string | null;
     attorneys?: string | null;
     about?: string | null;
     caseResults?: string | null;
@@ -2116,6 +2170,46 @@ export interface WhyChooseUs {
   createdAt?: string | null;
 }
 /**
+ * The four jurisdiction blocks shown in the Jurisdiction section — Domestic Nepal, International, Arbitration, and Regulatory.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jurisdiction".
+ */
+export interface Jurisdiction {
+  id: number;
+  sectionEyebrow?: string | null;
+  sectionHeadline?: string | null;
+  sectionLead?: string | null;
+  /**
+   * Each block is one jurisdiction type. Recommended order: Domestic, International, Arbitration, Regulatory.
+   */
+  blocks?:
+    | {
+        /**
+         * e.g. "Domestic (Nepal)"
+         */
+        heading: string;
+        icon?: ('Globe' | 'Scale' | 'Gavel' | 'Building2' | 'Shield' | 'Network') | null;
+        /**
+         * Two or three sentences describing the scope of this jurisdiction.
+         */
+        description?: string | null;
+        /**
+         * Bullet-point items — courts, institutions, or work types covered.
+         */
+        points?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
@@ -2172,6 +2266,8 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         firmName?: T;
         bookConsultation?: T;
         practiceAreas?: T;
+        services?: T;
+        jurisdiction?: T;
         attorneys?: T;
         about?: T;
         caseResults?: T;
@@ -2246,6 +2342,32 @@ export interface WhyChooseUsSelect<T extends boolean = true> {
         icon?: T;
         title?: T;
         description?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jurisdiction_select".
+ */
+export interface JurisdictionSelect<T extends boolean = true> {
+  sectionEyebrow?: T;
+  sectionHeadline?: T;
+  sectionLead?: T;
+  blocks?:
+    | T
+    | {
+        heading?: T;
+        icon?: T;
+        description?: T;
+        points?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
         id?: T;
       };
   updatedAt?: T;

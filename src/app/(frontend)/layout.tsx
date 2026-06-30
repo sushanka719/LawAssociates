@@ -17,6 +17,7 @@ import './styles/base.css'
 import './styles/nav.css'
 import './styles/hero.css'
 import './styles/sections-a.css'
+import './styles/sections-b.css'
 import './styles/content.css'
 import './styles/contact-footer.css'
 

@@ -9,6 +9,7 @@ import { Awards } from './collections/Awards'
 import { CaseResults } from './collections/CaseResults'
 import { Categories } from './collections/Categories'
 import { ConsultationRequests } from './collections/ConsultationRequests'
+import { FirmServices } from './collections/FirmServices'
 import { Insights } from './collections/Insights'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
@@ -18,6 +19,7 @@ import { Testimonials } from './collections/Testimonials'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
+import { Jurisdiction } from './globals/Jurisdiction'
 import { ProcessSteps } from './globals/ProcessSteps'
 import { SiteSettings } from './globals/SiteSettings'
 import { WhyChooseUs } from './globals/WhyChooseUs'
@@ -79,6 +81,7 @@ export default buildConfig({
     Categories,
     Users,
     PracticeAreas,
+    FirmServices,
     Attorneys,
     CaseResults,
     Testimonials,
@@ -95,7 +98,7 @@ export default buildConfig({
     fallback: true,
   },
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer, SiteSettings, ProcessSteps, WhyChooseUs],
+  globals: [Header, Footer, SiteSettings, ProcessSteps, WhyChooseUs, Jurisdiction],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
   sharp,
