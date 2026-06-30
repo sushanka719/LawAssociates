@@ -32,13 +32,11 @@ export const Attorneys: CollectionConfig = {
     {
       name: 'role',
       type: 'text',
-      required: true,
       localized: true,
     },
     {
       name: 'specialty',
       type: 'text',
-      required: true,
       localized: true,
     },
     {

@@ -9,7 +9,7 @@
  * Admin credentials are read from environment or default below.
  */
 
-const BASE = 'http://localhost:3000'
+const BASE = (process.env.SEED_BASE_URL || 'http://localhost:3000').replace(/\/$/, '')
 const EMAIL = process.env.ADMIN_EMAIL || 'karkisushanka719@gmail.com'
 const PASSWORD = process.env.ADMIN_PASSWORD || 'sushanka@123'
 
