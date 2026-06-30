@@ -34,7 +34,9 @@ export function Attorneys({ attorneys }: AttorneysProps) {
     photoUrl: (() => {
       const photo = a.photo
       if (!photo) return null
-      const pub = process.env.NEXT_PUBLIC_R2_PUBLIC_URL
+      const pub = process.env.NEXT_PUBLIC_R2_PUBLIC_URL?.replace(/\/$/, '')
+      if (pub && photo.url && !photo.url.startsWith('http')) return `${pub}/${photo.url}`
+      if (photo.url?.startsWith('http')) return photo.url
       if (pub && photo.filename) return `${pub}/${photo.filename}`
       return photo.url || null
     })(),
